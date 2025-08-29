@@ -2,7 +2,7 @@ name: Daily Sub Classify — Artifact + Commit
 
 on:
   schedule:
-    - cron: '0 0 * * *'    # اجرا روزانه در 00:00 UTC
+    - cron: '0 0 * * *' 
   workflow_dispatch:
 
 jobs:
@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    env:
-      SUB_URL: ${{ vars.SUB_URL }}
-      DEFAULT_SUB_URL: 'https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet'
 
     steps:
       - name: Checkout repository
@@ -32,11 +29,7 @@ jobs:
 
       - name: Run sub classifier
         run: |
-          URL="${SUB_URL:-$DEFAULT_SUB_URL}"
-          echo "[+] Using URL: $URL"
-          # اطمینان از اینکه sub_classifier.py در ریشه ریپو هست یا مسیر رو تغییر بدین
-          python sub_classifier.py --url "$URL" --outdir ./classified_output --decode-vmess
-        # اگر بخواین لاگ مفصل‌تر بذارین می‌تونم --verbose اضافه کنم
+          python sub_classifier.py --outdir ./classified_output --decode-vmess
         continue-on-error: false
 
       - name: Check expected output exists
@@ -58,7 +51,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          # اضافه کردن پوشه خروجی؛ می تونید دقیق‌تر کنید (مثلاً فقط vless.txt)
           git add classified_output
           if git diff --staged --quiet; then
             echo "No changes to commit"
