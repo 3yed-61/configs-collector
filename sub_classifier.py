@@ -551,5 +551,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-/
-ensure the regex replacement is valid
