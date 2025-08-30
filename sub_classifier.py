@@ -1,3 +1,16 @@
+#!/usr/bin/env python3
+"""
+Subscription config classifier
+
+Features:
+- Accept multiple --url / -u arguments (repeatable)
+- Accept --urls-file containing one URL per line
+- Falls back to DEFAULT_URLS list when no URLs provided
+- Downloads each URL separately and concatenates content for parsing
+- Keeps original behavior: find URIs, parse JSON blocks, classify,
+  optionally decode vmess base64 entries, and write output files.
+"""
+
 import os
 import re
 import argparse
@@ -12,6 +25,7 @@ except Exception:
     requests = None
     import urllib.request
 
+# add multiple default URLs here
 DEFAULT_URLS = [
     "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet"
 ]
