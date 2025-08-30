@@ -12,9 +12,9 @@ except Exception:
 
 DEFAULT_URL = "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet"
 
-# regex to capture typical URI-like tokens (stops at whitespace or quotes)
+
 URI_RE = re.compile(r'\b(?:vmess|vless|trojan|ss|socks5|socks)://[^\s\'"]+', re.IGNORECASE)
-# simple JSON object finder (non-greedy)
+
 JSON_OBJ_RE = re.compile(r'\{.*?\}', re.DOTALL)
 
 def fetch_url(url):
@@ -41,7 +41,6 @@ def find_json_configs(text):
             j = json.loads(s)
             results.append(j)
         except Exception:
-            # بعضی JSONها ممکنه در یک خط یا به شکل لا به لای متن باشن — نادیده می‌گیریم
             continue
     return results
 
@@ -54,7 +53,7 @@ def vless_valid(uri):
     low = uri.lower()
     if "tls" in low or "reality" in low:
         return True
-    # گاهی پارامترها urlencoded هستند:
+   
     un = unquote(uri).lower()
     if "tls" in un or "reality" in un:
         return True
@@ -64,9 +63,9 @@ def decode_vmess_base64(uri):
     """اگر vmess://<base64> باشد، تلاش می‌کند دِکُد کند و JSON برگرداند"""
     try:
         payload = uri.split("://",1)[1]
-        # ممکنه بعد از '#...' یا whitespace چیزی اضافه شده باشد
+        
         payload = payload.split('#')[0].strip()
-        # بعضی subscription ها قبل/بعد newline حاوی چندین token هستند؛ فقط پایه را دیکد می‌کنیم
+       
         b = base64.urlsafe_b64decode(payload + '=' * (-len(payload) % 4))
         j = json.loads(b.decode('utf-8', errors='ignore'))
         return j
@@ -89,18 +88,18 @@ def main():
     text = fetch_url(args.url)
     os.makedirs(args.outdir, exist_ok=True)
 
-    # استخراج URIها
+  
     uris = find_uris(text)
     print(f"[+] تعداد URI پیدا شده توسط regex: {len(uris)}")
 
-    # استخراج JSONهای مستقل (که ممکنه کانفیگ vmess به صورت JSON باشند)
+   
     json_blocks = find_json_configs(text)
     print(f"[+] تعداد بلاک JSON قابل پارس: {len(json_blocks)}")
 
     classified = {
         "vmess": [],
         "vless": [],
-        "vless_invalid": [],  # vlessهای بدون tls/reality
+        "vless_invalid": [],
         "trojan": [],
         "ss": [],
         "socks": [],
@@ -125,16 +124,16 @@ def main():
         else:
             classified["other"].append(uri)
 
-    # اگر بلاک‌های JSON حاوی vmess-like بودند، به vmess اضافه‌شان می‌کنیم (می‌میریم آنها را به صورت JSON stringify بنویسیم)
+    
     for jb in json_blocks:
-        # تلاش برای تشخیص نوع: اگر کلید خاص vmess وجود داشته باشد
+        
         lowered_keys = {k.lower(): k for k in jb.keys()}
         js_text = json.dumps(jb, ensure_ascii=False)
-        # heuristic: اگر در json یک فیلد مثل "ps" یا "add" یا "port" یا "v" باشد احتمال vmess است
+        
         if any(k in lowered_keys for k in ("ps","add","port","id","aid","net","type","v")):
             classified["vmess"].append(js_text)
         else:
-            # اگر مشخصات vless در json بود:
+           
             if "protocol" in jb and isinstance(jb["protocol"], str) and jb["protocol"].lower() == "vless":
                 sj = js_text
                 if "tls" in sj.lower() or "reality" in sj.lower():
@@ -144,7 +143,6 @@ def main():
             else:
                 classified["other"].append(js_text)
 
-    # نوشتن فایل‌ها
     save_list_to_file(classified["vmess"], os.path.join(args.outdir, "vmess.txt"))
     save_list_to_file(classified["vless"], os.path.join(args.outdir, "vless.txt"))
     save_list_to_file(classified["vless_invalid"], os.path.join(args.outdir, "vless_invalid.txt"))
@@ -153,7 +151,6 @@ def main():
     save_list_to_file(classified["socks"], os.path.join(args.outdir, "socks.txt"))
     save_list_to_file(classified["other"], os.path.join(args.outdir, "other.txt"))
 
-    # اختیاری: دِکُد vmess base64 و ذخیره json خوانا
     if args.decode_vmess:
         decoded = []
         for u in classified["vmess"]:
