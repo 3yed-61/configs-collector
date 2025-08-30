@@ -29,33 +29,29 @@ JSON_OBJ_RE = re.compile(r'\{.*?\}', re.DOTALL)
 # 🔹 تابع نرمال‌سازی تگ
 # ======================
 def normalize_tag(config: str, new_tag="3λΞĐ") -> str:
-    """پاک کردن نام قدیمی و اضافه کردن تگ جدید (پرچم نگه داشته می‌شود)."""
+    """پاک کردن نام قدیمی و اضافه کردن تگ جدید (پرچم یا پسوند نگه داشته می‌شود)."""
     if "#" not in config:
         return f"{config}#{new_tag}"
 
     before, after = config.split("#", 1)
     after = after.strip()
 
-    delimiters = ["::", "-", "_"]
-    suffix = None
-
-    # اگر delimiter وجود داشت
-    for d in delimiters:
+    # بررسی جداکننده‌های رایج
+    for d in ["::", "-", "_"]:
         if d in after:
             parts = after.split(d, 1)
             suffix = parts[1].strip() if len(parts) > 1 else ""
-            break
+            if suffix:
+                return f"{before}#{new_tag}{d}{suffix}"
+            return f"{before}#{new_tag}"
 
-    if suffix:
-        return f"{before}#{new_tag}::{suffix}"
-
-    # اگر پرچم وجود داشت
+    # بررسی پرچم (دو ایموجی یونیکد پشت هم)
     match = re.search(r"([\U0001F1E6-\U0001F1FF]{2})", after)
     if match:
         flag = match.group(1)
         return f"{before}#{new_tag}::{flag}"
 
-    # در غیر اینصورت فقط تگ جدید
+    # اگر هیچ چیزی نبود
     return f"{before}#{new_tag}"
 # ======================
 
