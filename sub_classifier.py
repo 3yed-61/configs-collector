@@ -12,10 +12,10 @@ except Exception:
     requests = None
     import urllib.request
 
-# default URLs (you can add more)
+# default URLs 
 DEFAULT_URLS = [
     "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet",
-"https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt"
+    "https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt"
 ]
 
 # include hysteria2 in recognized schemes
@@ -24,6 +24,40 @@ URI_RE = re.compile(
     re.IGNORECASE
 )
 JSON_OBJ_RE = re.compile(r'\{.*?\}', re.DOTALL)
+
+# ======================
+# 🔹 تابع نرمال‌سازی تگ
+# ======================
+def normalize_tag(config: str, new_tag="3λΞĐ") -> str:
+    """پاک کردن نام قدیمی و اضافه کردن تگ جدید (پرچم نگه داشته می‌شود)."""
+    if "#" not in config:
+        return f"{config}#{new_tag}"
+
+    before, after = config.split("#", 1)
+    after = after.strip()
+
+    delimiters = ["::", "-", "_"]
+    suffix = None
+
+    # اگر delimiter وجود داشت
+    for d in delimiters:
+        if d in after:
+            parts = after.split(d, 1)
+            suffix = parts[1].strip() if len(parts) > 1 else ""
+            break
+
+    if suffix:
+        return f"{before}#{new_tag}::{suffix}"
+
+    # اگر پرچم وجود داشت
+    match = re.search(r"([\U0001F1E6-\U0001F1FF]{2})", after)
+    if match:
+        flag = match.group(1)
+        return f"{before}#{new_tag}::{flag}"
+
+    # در غیر اینصورت فقط تگ جدید
+    return f"{before}#{new_tag}"
+# ======================
 
 
 def fetch_url(url: str, timeout: int = 30) -> str:
@@ -67,14 +101,10 @@ def classify_uri(uri: str) -> str:
 
 
 def vless_valid(uri: str) -> bool:
-    """
-    Check if vless contains tls or reality (in query or uri).
-    This is used to separate vless_valid vs vless_invalid.
-    """
+    """Check if vless contains tls or reality (in query or uri)."""
     low = uri.lower()
     if "tls" in low or "reality" in low:
         return True
-
     un = unquote(uri).lower()
     if "tls" in un or "reality" in un:
         return True
@@ -86,7 +116,6 @@ def decode_vmess_base64(uri: str):
     try:
         payload = uri.split("://", 1)[1]
         payload = payload.split('#')[0].strip()
-        # add padding for base64
         b = base64.urlsafe_b64decode(payload + '=' * (-len(payload) % 4))
         j = json.loads(b.decode('utf-8', errors='ignore'))
         return j
@@ -107,10 +136,8 @@ def save_list_to_file(lst: List[str], path: str):
 
 def gather_urls_from_args(args) -> List[str]:
     urls = []
-    # from repeated --url
     if args.url:
         urls.extend(args.url)
-    # from file
     if args.urls_file:
         try:
             with open(args.urls_file, "r", encoding="utf-8") as fh:
@@ -120,10 +147,8 @@ def gather_urls_from_args(args) -> List[str]:
                         urls.append(u)
         except Exception as e:
             print(f"[!] Could not read urls file '{args.urls_file}': {e}")
-    # fallback to defaults
     if not urls:
         urls = DEFAULT_URLS.copy()
-    # remove duplicates while preserving order
     seen = set()
     uniq = []
     for u in urls:
@@ -134,22 +159,11 @@ def gather_urls_from_args(args) -> List[str]:
 
 
 def main():
-    p = argparse.ArgumentParser(
-        description="Classify subscription configs into separate files (hysteria2 supported)."
-    )
-    p.add_argument(
-        "--url", "-u", action="append",
-        help="Subscription/raw link (repeatable). Example: -u https://example.com/sub1 -u https://example.com/sub2"
-    )
+    p = argparse.ArgumentParser(description="Classify subscription configs into separate files (hysteria2 supported).")
+    p.add_argument("--url", "-u", action="append")
     p.add_argument("--urls-file", help="Path to file with URLs, one per line")
-    p.add_argument(
-        "--outdir", "-o", help="Output directory (default ./classified_output)",
-        default="./classified_output"
-    )
-    p.add_argument(
-        "--decode-vmess", action="store_true",
-        help="If possible, decode vmess://<base64> entries and create vmess_decoded.json"
-    )
+    p.add_argument("--outdir", "-o", help="Output directory (default ./classified_output)", default="./classified_output")
+    p.add_argument("--decode-vmess", action="store_true")
     args = p.parse_args()
 
     urls = gather_urls_from_args(args)
@@ -157,7 +171,6 @@ def main():
 
     os.makedirs(args.outdir, exist_ok=True)
 
-    # download all specified URLs (continue on failure)
     combined_text_parts = []
     for u in urls:
         try:
@@ -190,8 +203,8 @@ def main():
         "other": []
     }
 
-    # classify URIs
     for uri in uris:
+        uri = normalize_tag(uri)   # 🔹 اینجا تگ‌ها اصلاح میشن
         scheme = classify_uri(uri)
         if scheme == "vmess":
             classified["vmess"].append(uri)
@@ -207,16 +220,13 @@ def main():
         elif scheme in ("socks5", "socks"):
             classified["socks"].append(uri)
         elif scheme in ("hysteria2", "hysteria"):
-            # all hysteria URIs go into hysteria.txt (no separate insecure file)
             classified["hysteria"].append(uri)
         else:
             classified["other"].append(uri)
 
-    # inspect JSON blocks for possible vmess/vless hints
     for jb in json_blocks:
         lowered_keys = {k.lower(): k for k in jb.keys()}
         js_text = json.dumps(jb, ensure_ascii=False)
-        # heuristic: likely vmess if common vmess keys exist
         if any(k in lowered_keys for k in ("ps", "add", "port", "id", "aid", "net", "type", "v")):
             classified["vmess"].append(js_text)
         else:
@@ -229,7 +239,6 @@ def main():
             else:
                 classified["other"].append(js_text)
 
-    # write output files
     save_list_to_file(classified["vmess"], os.path.join(args.outdir, "vmess.txt"))
     save_list_to_file(classified["vless"], os.path.join(args.outdir, "vless.txt"))
     save_list_to_file(classified["vless_invalid"], os.path.join(args.outdir, "vless_invalid.txt"))
@@ -239,7 +248,6 @@ def main():
     save_list_to_file(classified["hysteria"], os.path.join(args.outdir, "hysteria.txt"))
     save_list_to_file(classified["other"], os.path.join(args.outdir, "other.txt"))
 
-    # optional vmess decode
     if args.decode_vmess:
         decoded = []
         for u in classified["vmess"]:
@@ -255,7 +263,6 @@ def main():
         else:
             print("[!] No vmess decodable found or all were miscellaneous.")
 
-    # print summary
     print("\n=== SUMMARY ===")
     for k in ["vmess", "vless", "vless_invalid", "trojan", "ss", "socks", "hysteria", "other"]:
         print(f"{k:15s}: {len(classified[k])}")
