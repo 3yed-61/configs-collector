@@ -215,14 +215,42 @@ def save_list_to_file(lst: Iterable[str], path: str):
 # Main flow
 # ------------------
 
+def encode_vmess_json_to_uri(j: dict) -> str:
+    raw = json.dumps(j, ensure_ascii=False, separators=(',', ':'))
+    b = raw.encode('utf-8')
+    encoded = base64.urlsafe_b64encode(b).decode('ascii')
+    encoded = encoded.rstrip('=')
+    return f"vmess://{encoded}"
+
+
 def process_text_and_classify(text: str, new_tag: str, classified: dict):
     # find URIs and normalize them immediately
     for uri in find_uris(text):
+        scheme = classify_uri_scheme(uri)
+
+        if scheme == 'vmess':
+            # Try decode vmess payload to JSON
+            j = decode_vmess_base64(uri)
+            if j is not None:
+                # normalize ps/remarks/name inside decoded vmess JSON
+                j2 = normalize_tag_in_json_obj(j, new_tag)
+                try:
+                    new_uri = encode_vmess_json_to_uri(j2)
+                    classified['vmess'].add(new_uri)
+                except Exception:
+                    # fallback: if encoding fails, strip fragment and keep original payload
+                    base = uri.split('#', 1)[0]
+                    classified['vmess'].add(base)
+            else:
+                # Could not decode: remove fragment if present to match desired form
+                base = uri.split('#', 1)[0]
+                classified['vmess'].add(base)
+            continue
+
+        # non-vmess path: replace fragment if present
         normalized = normalize_tag_in_uri(uri, new_tag)
         scheme = classify_uri_scheme(normalized)
-        if scheme == 'vmess':
-            classified['vmess'].add(normalized)
-        elif scheme == 'vless':
+        if scheme == 'vless':
             if vless_valid(normalized):
                 classified['vless'].add(normalized)
             else:
@@ -246,8 +274,12 @@ def process_text_and_classify(text: str, new_tag: str, classified: dict):
         lowered_keys = {k.lower(): k for k in obj.keys()}
         js_text = json.dumps(obj, ensure_ascii=False)
         if any(k in lowered_keys for k in ('ps', 'add', 'port', 'id', 'aid', 'net', 'type', 'v')):
-            # treat as vmess-like if keys present
-            classified['vmess'].add(js_text)
+            # treat as vmess-like if keys present -> try to encode as vmess base64
+            try:
+                new_uri = encode_vmess_json_to_uri(obj)
+                classified['vmess'].add(new_uri)
+            except Exception:
+                classified['vmess'].add(js_text)
         else:
             if 'protocol' in obj and isinstance(obj['protocol'], str) and obj['protocol'].lower() == 'vless':
                 if 'tls' in js_text.lower() or 'reality' in js_text.lower():
@@ -256,7 +288,6 @@ def process_text_and_classify(text: str, new_tag: str, classified: dict):
                     classified['vless_invalid'].add(js_text)
             else:
                 classified['other'].add(js_text)
-
 
 def main():
     p = argparse.ArgumentParser(description='Classify subscription configs and normalize fragments/tags')
