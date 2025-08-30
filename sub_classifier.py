@@ -12,7 +12,7 @@ except Exception:
     requests = None
     import urllib.request
 
-# default URLs 
+# default URLs
 DEFAULT_URLS = [
     "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet",
     "https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt"
@@ -26,38 +26,23 @@ URI_RE = re.compile(
 JSON_OBJ_RE = re.compile(r'\{.*?\}', re.DOTALL)
 
 # ======================
-# 🔹 تابع نرمال‌سازی تگ
+# 🔹 تابع نرمال‌سازی تگ با حفظ پرچم
 # ======================
 def normalize_tag(config: str, new_tag="3λΞĐ") -> str:
-    """پاک کردن نام قدیمی و اضافه کردن تگ جدید (پرچم یا پسوند نگه داشته می‌شود)."""
+    """Replace old tag with new_tag while preserving any flag emojis."""
     if "#" not in config:
         return f"{config}#{new_tag}"
 
     before, after = config.split("#", 1)
     after = after.strip()
 
-    # بررسی جداکننده‌های رایج
-    for d in ["::", "-", "_"]:
-        if d in after:
-            parts = after.split(d, 1)
-            suffix = parts[1].strip() if len(parts) > 1 else ""
-            if suffix:
-                return f"{before}#{new_tag}{d}{suffix}"
-            return f"{before}#{new_tag}"
+    # پیدا کردن همه ایموجی‌های پرچم
+    flags = "".join(re.findall(r"[\U0001F1E6-\U0001F1FF]{2}", after))
 
-    # بررسی پرچم (دو ایموجی یونیکد پشت هم)
-    match = re.search(r"([\U0001F1E6-\U0001F1FF]{2})", after)
-    if match:
-        flag = match.group(1)
-        return f"{before}#{new_tag}::{flag}"
-
-    # اگر هیچ چیزی نبود
-    return f"{before}#{new_tag}"
+    return f"{before}#{new_tag}{('::' + flags) if flags else ''}"
 # ======================
 
-
 def fetch_url(url: str, timeout: int = 30) -> str:
-    """Fetch URL and return text. Raises on unrecoverable HTTP error."""
     print(f"[+] Downloading from: {url}")
     try:
         if requests:
@@ -70,15 +55,11 @@ def fetch_url(url: str, timeout: int = 30) -> str:
     except Exception as e:
         raise RuntimeError(f"Failed to fetch {url}: {e}") from e
 
-
 def find_uris(text: str) -> List[str]:
-    """Return list of URIs found by regex."""
     found = URI_RE.findall(text)
     return [u.strip() for u in found]
 
-
 def find_json_configs(text: str) -> List[dict]:
-    """Find JSON blocks and return list of dicts that can be parsed."""
     results = []
     for m in JSON_OBJ_RE.finditer(text):
         s = m.group(0)
@@ -89,15 +70,10 @@ def find_json_configs(text: str) -> List[dict]:
             continue
     return results
 
-
 def classify_uri(uri: str) -> str:
-    """Return the scheme portion (lowercased) of a URI."""
-    scheme = uri.split("://", 1)[0].lower()
-    return scheme
-
+    return uri.split("://", 1)[0].lower()
 
 def vless_valid(uri: str) -> bool:
-    """Check if vless contains tls or reality (in query or uri)."""
     low = uri.lower()
     if "tls" in low or "reality" in low:
         return True
@@ -106,9 +82,7 @@ def vless_valid(uri: str) -> bool:
         return True
     return False
 
-
 def decode_vmess_base64(uri: str):
-    """If vmess://<base64>, try to decode and return JSON dict, otherwise None."""
     try:
         payload = uri.split("://", 1)[1]
         payload = payload.split('#')[0].strip()
@@ -118,9 +92,7 @@ def decode_vmess_base64(uri: str):
     except Exception:
         return None
 
-
 def save_list_to_file(lst: List[str], path: str):
-    """Write list to file (each entry in its own line)."""
     with open(path, "w", encoding="utf-8") as f:
         for item in lst:
             if isinstance(item, (dict, list)):
@@ -128,7 +100,6 @@ def save_list_to_file(lst: List[str], path: str):
             else:
                 f.write(str(item) + "\n")
     print(f"[+] Written: {path} ({len(lst)})")
-
 
 def gather_urls_from_args(args) -> List[str]:
     urls = []
@@ -152,7 +123,6 @@ def gather_urls_from_args(args) -> List[str]:
             seen.add(u)
             uniq.append(u)
     return uniq
-
 
 def main():
     p = argparse.ArgumentParser(description="Classify subscription configs into separate files (hysteria2 supported).")
@@ -200,7 +170,7 @@ def main():
     }
 
     for uri in uris:
-        uri = normalize_tag(uri)   # 🔹 اینجا تگ‌ها اصلاح میشن
+        uri = normalize_tag(uri)  # 🔹 Apply new tag normalization with flag preservation
         scheme = classify_uri(uri)
         if scheme == "vmess":
             classified["vmess"].append(uri)
@@ -264,7 +234,6 @@ def main():
         print(f"{k:15s}: {len(classified[k])}")
     print(f"\nOutput directory: {os.path.abspath(args.outdir)}")
     print("Done.")
-
 
 if __name__ == "__main__":
     main()
