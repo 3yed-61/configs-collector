@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Subscription config classifier
+Subscription config classifier (hysteria2 support, insecure flag only used for vless)
 
 Features:
 - Accept multiple --url / -u arguments (repeatable)
 - Accept --urls-file containing one URL per line
 - Falls back to DEFAULT_URLS list when no URLs provided
 - Downloads each URL separately and concatenates content for parsing
-- Keeps original behavior: find URIs, parse JSON blocks, classify,
-  optionally decode vmess base64 entries, and write output files.
+- Finds URIs and JSON blocks, classifies them into files
+- Supports hysteria2:// URIs (all hysteria URIs go to hysteria.txt; no separate insecure file)
+- For vless URIs the script keeps vless.txt (valid: contains tls or reality) and vless_invalid.txt (no tls/reality)
+- Optionally decode vmess://<base64> entries to vmess_decoded.json
 """
 
 import os
@@ -25,12 +27,16 @@ except Exception:
     requests = None
     import urllib.request
 
-# add multiple default URLs here
+# default URLs (you can add more)
 DEFAULT_URLS = [
     "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet"
 ]
 
-URI_RE = re.compile(r'\b(?:vmess|vless|trojan|ss|socks5|socks)://[^\s\'"]+', re.IGNORECASE)
+# include hysteria2 in recognized schemes
+URI_RE = re.compile(
+    r'\b(?:vmess|vless|trojan|ss|socks5|socks|hysteria2)://[^\s\'"]+',
+    re.IGNORECASE
+)
 JSON_OBJ_RE = re.compile(r'\{.*?\}', re.DOTALL)
 
 
@@ -46,7 +52,6 @@ def fetch_url(url: str, timeout: int = 30) -> str:
             with urllib.request.urlopen(url, timeout=timeout) as r:
                 return r.read().decode('utf-8', errors='ignore')
     except Exception as e:
-        # raise to caller so caller can decide to continue with other URLs
         raise RuntimeError(f"Failed to fetch {url}: {e}") from e
 
 
@@ -70,12 +75,16 @@ def find_json_configs(text: str) -> List[dict]:
 
 
 def classify_uri(uri: str) -> str:
+    """Return the scheme portion (lowercased) of a URI."""
     scheme = uri.split("://", 1)[0].lower()
     return scheme
 
 
 def vless_valid(uri: str) -> bool:
-    """Check if vless contains tls or reality (in query or uri)."""
+    """
+    Check if vless contains tls or reality (in query or uri).
+    This is used to separate vless_valid vs vless_invalid.
+    """
     low = uri.lower()
     if "tls" in low or "reality" in low:
         return True
@@ -100,9 +109,9 @@ def decode_vmess_base64(uri: str):
 
 
 def save_list_to_file(lst: List[str], path: str):
+    """Write list to file (each entry in its own line)."""
     with open(path, "w", encoding="utf-8") as f:
         for item in lst:
-            # ensure strings; dicts should be dumped before calling this
             if isinstance(item, (dict, list)):
                 f.write(json.dumps(item, ensure_ascii=False) + "\n")
             else:
@@ -139,13 +148,22 @@ def gather_urls_from_args(args) -> List[str]:
 
 
 def main():
-    p = argparse.ArgumentParser(description="Classify subscription configs into separate files")
-    p.add_argument("--url", "-u", action="append",
-                   help="Subscription/raw link (repeatable). Example: -u https://example.com/sub1 -u https://example.com/sub2")
+    p = argparse.ArgumentParser(
+        description="Classify subscription configs into separate files (hysteria2 supported)."
+    )
+    p.add_argument(
+        "--url", "-u", action="append",
+        help="Subscription/raw link (repeatable). Example: -u https://example.com/sub1 -u https://example.com/sub2"
+    )
     p.add_argument("--urls-file", help="Path to file with URLs, one per line")
-    p.add_argument("--outdir", "-o", help="Output directory (default ./classified_output)", default="./classified_output")
-    p.add_argument("--decode-vmess", action="store_true",
-                   help="If possible, decode vmess://<base64> entries and create vmess_decoded.json")
+    p.add_argument(
+        "--outdir", "-o", help="Output directory (default ./classified_output)",
+        default="./classified_output"
+    )
+    p.add_argument(
+        "--decode-vmess", action="store_true",
+        help="If possible, decode vmess://<base64> entries and create vmess_decoded.json"
+    )
     args = p.parse_args()
 
     urls = gather_urls_from_args(args)
@@ -161,7 +179,6 @@ def main():
             combined_text_parts.append(txt)
         except Exception as e:
             print(f"[!] Warning: {e}")
-            # continue with other URLs
             continue
 
     if not combined_text_parts:
@@ -183,9 +200,11 @@ def main():
         "trojan": [],
         "ss": [],
         "socks": [],
+        "hysteria": [],
         "other": []
     }
 
+    # classify URIs
     for uri in uris:
         scheme = classify_uri(uri)
         if scheme == "vmess":
@@ -201,10 +220,13 @@ def main():
             classified["ss"].append(uri)
         elif scheme in ("socks5", "socks"):
             classified["socks"].append(uri)
+        elif scheme in ("hysteria2", "hysteria"):
+            # all hysteria URIs go into hysteria.txt (no separate insecure file)
+            classified["hysteria"].append(uri)
         else:
             classified["other"].append(uri)
 
-    # also inspect JSON blocks
+    # inspect JSON blocks for possible vmess/vless hints
     for jb in json_blocks:
         lowered_keys = {k.lower(): k for k in jb.keys()}
         js_text = json.dumps(jb, ensure_ascii=False)
@@ -228,8 +250,10 @@ def main():
     save_list_to_file(classified["trojan"], os.path.join(args.outdir, "trojan.txt"))
     save_list_to_file(classified["ss"], os.path.join(args.outdir, "shadowsocks.txt"))
     save_list_to_file(classified["socks"], os.path.join(args.outdir, "socks.txt"))
+    save_list_to_file(classified["hysteria"], os.path.join(args.outdir, "hysteria.txt"))
     save_list_to_file(classified["other"], os.path.join(args.outdir, "other.txt"))
 
+    # optional vmess decode
     if args.decode_vmess:
         decoded = []
         for u in classified["vmess"]:
@@ -247,7 +271,7 @@ def main():
 
     # print summary
     print("\n=== SUMMARY ===")
-    for k in ["vmess", "vless", "vless_invalid", "trojan", "ss", "socks", "other"]:
+    for k in ["vmess", "vless", "vless_invalid", "trojan", "ss", "socks", "hysteria", "other"]:
         print(f"{k:15s}: {len(classified[k])}")
     print(f"\nOutput directory: {os.path.abspath(args.outdir)}")
     print("Done.")
