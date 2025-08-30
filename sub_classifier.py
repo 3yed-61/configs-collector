@@ -1,18 +1,3 @@
-#!/usr/bin/env python3
-"""
-Subscription config classifier (hysteria2 support, insecure flag only used for vless)
-
-Features:
-- Accept multiple --url / -u arguments (repeatable)
-- Accept --urls-file containing one URL per line
-- Falls back to DEFAULT_URLS list when no URLs provided
-- Downloads each URL separately and concatenates content for parsing
-- Finds URIs and JSON blocks, classifies them into files
-- Supports hysteria2:// URIs (all hysteria URIs go to hysteria.txt; no separate insecure file)
-- For vless URIs the script keeps vless.txt (valid: contains tls or reality) and vless_invalid.txt (no tls/reality)
-- Optionally decode vmess://<base64> entries to vmess_decoded.json
-"""
-
 import os
 import re
 import argparse
@@ -29,7 +14,8 @@ except Exception:
 
 # default URLs (you can add more)
 DEFAULT_URLS = [
-    "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet"
+    "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet",
+"https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt"
 ]
 
 # include hysteria2 in recognized schemes
