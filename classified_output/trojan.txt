@@ -1,2 +1,7 @@
+trojan://2ee85121-31de-4581-a492-eb00f606e392@103.252.116.138:443?allowInsecure=0&sni=hk.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AD%F0%9F%87%B0
+trojan://2ee85121-31de-4581-a492-eb00f606e392@103.252.116.138:443?security=tls&sni=hk.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AD%F0%9F%87%B0
+trojan://2ee85121-31de-4581-a492-eb00f606e392@192.3.107.252:443?security=tls&headerType=none&type=tcp&sni=rc8.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
+trojan://2ee85121-31de-4581-a492-eb00f606e392@192.3.107.252:443?security=tls&sni=rc8.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
+trojan://2ee85121-31de-4581-a492-eb00f606e392@198.23.229.250:443?security=tls&headerType=none&type=tcp&sni=rc6.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
 trojan://2ee85121-31de-4581-a492-eb00f606e392@198.46.152.83:443?security=tls&sni=sj3.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
 trojan://2ee85121-31de-4581-a492-eb00f606e392@45.91.171.116:443?security=tls&sni=sto.freeguard.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B8%F0%9F%87%AA
