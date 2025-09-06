@@ -1,2 +1,1 @@
-hysteria2://dongtaiwang.com@108.181.5.130:63015?security=tls&insecure=1&sni=apple.com#3%CE%BB%CE%9E%C4%90%3A%3A%E2%9D%93
 hysteria2://dongtaiwang.com@208.87.243.187:22222?security=tls&insecure=1&sni=www.bing.com#3%CE%BB%CE%9E%C4%90%3A%3A%E2%9D%93
