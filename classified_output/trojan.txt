@@ -1,12 +1,2 @@
 trojan://02XtoczO7V@creativecommons.org:443?path=%2Fhishhhh123&security=tls&alpn=http%2F1.1&host=mooshali.arshiacomplus.dpdns.org&fp=firefox&type=ws&sni=mooshali.arshiacomplus.dpdns.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B3%F0%9F%87%B1
-trojan://253bc477d4e43c209f2d427272968280@221.128.195.218:4431?allowInsecure=0&sni=www.nintendogames.net#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AD%F0%9F%87%B0
-trojan://253bc477d4e43c209f2d427272968280@38.180.249.152:443?allowInsecure=0&sni=www.nintendogames.net#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B8%F0%9F%87%AC
-trojan://253bc477d4e43c209f2d427272968280@38.180.249.152:443?allowInsecure=1&sni=www.nintendogames.net#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B8%F0%9F%87%AC
-trojan://61374417-9218-4065-909b-ad1e3b50aa83@172.67.168.193:443?path=%2FFree-VPN-Geo-Project%2F80.66.85.115-2053&security=tls&host=gamang.gpj2.dpdns.org&type=ws&sni=gamang.gpj2.dpdns.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
-trojan://YwuvGJk36B@creativecommons.org:2053?path=%2Fyamtekodasayahhh&security=tls&alpn=http%2F1.1&host=kotlet.arshiacomplus.dpdns.org&fp=firefox&type=ws&sni=kotlet.arshiacomplus.dpdns.org#3%CE%BB%CE%9E%C4%90%3A%3A%E2%9D%93
-trojan://YwuvGJk36B@creativecommons.org:2053?path=%2Fyamtekodasayahhh&security=tls&alpn=http%2F1.1&host=kotlet.arshiacomplus.dpdns.org&type=ws&sni=kotlet.arshiacomplus.dpdns.org#3%CE%BB%CE%9E%C4%90%3A%3A%E2%9D%93
-trojan://YwuvGJk36B@creativecommons.org:2053?security=tls&sni=kotlet.arshiacomplus.dpdns.org&alpn=http%2F1.1&fp=firefox&type=ws&host=kotlet.arshiacomplus.dpdns.org&path=%2Fyamtekodasayahhh#3%CE%BB%CE%9E%C4%90%3A%3A%E2%9D%93
-trojan://bcc79f8e-aa76-48c0-b80f-d0190df0d6de@104.21.70.241:443?path=%2FFree-VPN-Geo-Project%2F151.236.23.74-2053&security=tls&host=gamang.gpj2.dpdns.org&type=ws&sni=gamang.gpj2.dpdns.org#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
-trojan://biOrJGlcfX@creativecommons.org:443/?type=ws&host=ghasem.kotlet.org&path=%2Fkos-madaret-khamneii&security=tls&sni=ghasem.kotlet.org&alpn=h2%2Chttp%2F1.1&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AC%F0%9F%87%A7
 trojan://biOrJGlcfX@creativecommons.org:443?path=%2Fkos-madaret-khamneii&security=tls&alpn=h2%2Chttp%2F1.1&host=ghasem.kotlet.org&fp=firefox&type=ws&sni=ghasem.kotlet.org#3%CE%BB%CE%9E%C4%90%3A%3A%E2%9D%93
-trojan://f282b878-8711-45a1-8c69-5564172123c1@172.67.156.25:443?path=%2Faioproxybot%2F129.150.49.58-18650&security=tls&host=aio.zipzap.biz.id&type=ws&sni=aio.zipzap.biz.id#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
