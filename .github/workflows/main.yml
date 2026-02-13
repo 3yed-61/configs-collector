@@ -1,26 +1,15 @@
-name: Daily Sub Classify — Artifact + Commit (Iran TZ)
+name: Daily Sub Classify — Artifact + Commit
 
 on:
   schedule:
-    # Runs daily at 00:00 Iran time (IRST = UTC+3:30)
-    # Converted to UTC: 20:30 previous day
-    - cron: '30 20 * * *'
+    - cron: '0 0 * * *' 
   workflow_dispatch:
-
-concurrency:
-  group: sub-classify-daily
-  cancel-in-progress: false
 
 jobs:
   classify-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
     permissions:
       contents: write
-
-    env:
-      TZ: Asia/Tehran
 
     steps:
       - name: Checkout repository
@@ -32,7 +21,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Install dependencies
         run: |
@@ -41,16 +29,13 @@ jobs:
 
       - name: Run sub classifier
         run: |
-          echo "Running classifier at $(date)"
-          python sub_classifier.py \
-            --outdir ./classified_output \
-            --decode-vmess \
-            --verbose
+          python sub_classifier.py --outdir ./classified_output --decode-vmess
+        continue-on-error: false
 
-      - name: Verify output integrity
+      - name: Check expected output exists
         run: |
           if [ ! -f classified_output/vless.txt ]; then
-            echo "ERROR: classified_output/vless.txt not found"
+            echo "Expected file classified_output/vless.txt not found!"
             ls -la classified_output || true
             exit 1
           fi
@@ -61,18 +46,15 @@ jobs:
           name: classified_output
           path: classified_output
           retention-days: 7
-          if-no-files-found: error
 
       - name: Commit and push if changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-
           git add classified_output
-
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Daily classified update (Iran TZ) [skip ci]"
+            git commit -m "Update classified configs [skip ci]"
             git push
           fi
