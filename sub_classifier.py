@@ -1,28 +1,44 @@
 #!/usr/bin/env python3
-# ---------- BEGIN SCRIPT ----------
+# Improved and refactored version of the original script
+# - logging, pathlib, concurrent fetch, requests.Session with retries
+# - more robust JSON extraction (objects + arrays)
+# - atomic file writes
+# - CLI: concurrency option
+from __future__ import annotations
+
+import argparse
+import base64
+import json
+import logging
 import os
 import re
-import argparse
-import json
-import base64
-import socket
 import ssl
-from urllib.parse import unquote, quote, urlsplit, parse_qs
-from typing import List, Iterable, Tuple
+import socket
+import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+from typing import Dict, Iterable, List, Optional, Tuple
 
 try:
     import requests
+    from requests.adapters import HTTPAdapter
+    from urllib3.util import Retry
 except Exception:
     requests = None
-    import urllib.request
 
+from urllib.parse import unquote, quote, urlsplit, parse_qs
+
+# --- Configuration / defaults ------------------------------------------------
 DEFAULT_URLS = [
     "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt",
     "https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt"
 ]
 
-URI_RE = re.compile(r"\b(?:vmess|vless|trojan|ss|socks5|socks|hysteria2|hysteria)://[^\s'\"]+", re.IGNORECASE)
-FLAG_RE = re.compile('([\\U0001F1E6-\\U0001F1FF]{2})')
+# Regex to capture URIs like vmess://..., vless://..., trojan://..., ss://..., socks5://...
+URI_RE = re.compile(r"\b(?:vmess|vless|trojan|ss|socks5|socks|hysteria2|hysteria)://[^\s'\"\)\]]+", re.IGNORECASE)
+
+# two-letter emoji flags
+FLAG_RE = re.compile(r'([\U0001F1E6-\U0001F1FF]{2})')
 
 SECURE_SS_CIPHERS = {
     'chacha20-ietf-poly1305',
@@ -32,41 +48,62 @@ SECURE_SS_CIPHERS = {
     'aead_chacha20_ietf_poly1305',
 }
 
-def extract_json_objects(text: str) -> List[str]:
-    objs = []
+WEAK_SS = {'rc4-md5', 'aes-128-cfb', 'aes-192-cfb'}
+
+# --- Logging -----------------------------------------------------------------
+logger = logging.getLogger("sub-classifier")
+handler = logging.StreamHandler()
+formatter = logging.Formatter("[%(levelname)s] %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+# --- Utility functions -------------------------------------------------------
+def extract_json_objects_and_arrays(text: str) -> List[str]:
+    """
+    Extract JSON objects and arrays robustly. Returns list of JSON text segments.
+    Handles nested braces/brackets and quoted strings.
+    """
+    results = []
+    stack = []
     start = None
-    stack = 0
     in_str = False
-    str_char = None
     esc = False
+    str_char = None
     for i, ch in enumerate(text):
         if in_str:
             if esc:
                 esc = False
                 continue
-            if ch == '\\\\':
+            if ch == "\\":
                 esc = True
                 continue
             if ch == str_char:
                 in_str = False
-                str_char = None
             continue
         else:
-            if ch == '\"' or ch == "'":
+            if ch == '"' or ch == "'":
                 in_str = True
                 str_char = ch
                 continue
-            if ch == '{':
-                if stack == 0:
+            if ch in "{[":
+                if not stack:
                     start = i
-                stack += 1
-            elif ch == '}':
-                if stack > 0:
-                    stack -= 1
-                    if stack == 0 and start is not None:
-                        objs.append(text[start:i+1])
+                stack.append(ch)
+            elif ch in "}]":
+                if not stack:
+                    continue
+                last = stack[-1]
+                if (last == "{" and ch == "}") or (last == "[" and ch == "]"):
+                    stack.pop()
+                    if not stack and start is not None:
+                        results.append(text[start:i+1])
                         start = None
-    return objs
+                else:
+                    # mismatched bracket -- reset
+                    stack = []
+                    start = None
+    return results
 
 def normalize_fragment(fragment: str, new_tag: str) -> str:
     if not fragment:
@@ -74,18 +111,18 @@ def normalize_fragment(fragment: str, new_tag: str) -> str:
     frag = fragment.strip()
     if new_tag in frag:
         return frag
-    delimiters = ['::', '-', '_']
-    suffix = None
-    for d in delimiters:
+    # try common delimiters
+    for d in ('::', '-', '_'):
         if d in frag:
             parts = frag.split(d, 1)
             suffix = parts[1].strip()
-            break
-    if suffix is None:
-        m = FLAG_RE.search(frag)
-        if m:
-            suffix = m.group(1)
-    if suffix:
+            if new_tag in suffix:
+                return suffix
+            return f"{new_tag}::{suffix}"
+    # try flag emoji
+    m = FLAG_RE.search(frag)
+    if m:
+        suffix = m.group(1)
         if new_tag in suffix:
             return suffix
         return f"{new_tag}::{suffix}"
@@ -112,15 +149,16 @@ def normalize_tag_in_json_obj(j: dict, new_tag: str) -> dict:
                 decoded = unquote(obj[key])
             except Exception:
                 decoded = obj[key]
-            new = normalize_fragment(decoded, new_tag)
-            obj[key] = new
+            obj[key] = normalize_fragment(decoded, new_tag)
     return obj
 
-def decode_vmess_base64(uri: str):
+def decode_vmess_base64(uri: str) -> Optional[dict]:
     try:
         payload = uri.split('://', 1)[1]
         payload = payload.split('#')[0].strip()
-        padded = payload + '=' * (-len(payload) % 4)
+        # strip potential URL query or newline
+        payload = payload.split('?')[0]
+        padded = payload + '=' * ((4 - len(payload) % 4) % 4)
         b = base64.urlsafe_b64decode(padded)
         j = json.loads(b.decode('utf-8', errors='ignore'))
         return j
@@ -133,68 +171,43 @@ def encode_vmess_json_to_uri(j: dict) -> str:
     encoded = base64.urlsafe_b64encode(b).decode('ascii').rstrip('=')
     return f"vmess://{encoded}"
 
-def fetch_url(url: str, timeout: int = 30) -> str:
-    print(f"[+] Downloading from: {url}")
-    try:
-        if requests:
-            resp = requests.get(url, timeout=timeout)
-            resp.raise_for_status()
-            return resp.text
-        else:
-            with urllib.request.urlopen(url, timeout=timeout) as r:
-                return r.read().decode('utf-8', errors='ignore')
-    except Exception as e:
-        raise RuntimeError(f"Failed to fetch {url}: {e}") from e
-
-def find_uris(text: str) -> List[str]:
-    found = URI_RE.findall(text)
-    return [u.strip() for u in found]
-
-def find_json_configs(text: str) -> List[dict]:
-    results = []
-    for s in extract_json_objects(text):
-        try:
-            j = json.loads(s)
-            results.append(j)
-        except Exception:
-            continue
-    return results
-
-def classify_uri_scheme(uri: str) -> str:
-    return uri.split('://', 1)[0].lower()
-
-def parse_query(uri: str) -> dict:
+def parse_query(uri: str) -> Dict[str, List[str]]:
     parts = urlsplit(uri)
     return {k: v for k, v in parse_qs(parts.query).items()}
 
-WEAK_SS = {'rc4-md5', 'aes-128-cfb', 'aes-192-cfb'}
-
+# --- Security checks --------------------------------------------------------
 def is_shadowsocks_secure(uri: str) -> Tuple[bool, List[str]]:
     reasons = []
     try:
         blob = uri.split('://', 1)[1].split('#')[0].split('?')[0]
+        # attempt base64-decoded form (ss://<base64>)
         if blob and all(c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=' for c in blob):
             try:
-                padded = blob + '=' * (-len(blob) % 4)
+                padded = blob + '=' * ((4 - len(blob) % 4) % 4)
                 dec = base64.urlsafe_b64decode(padded).decode('utf-8', errors='ignore')
+                # possible forms: method:password@host:port or method:password
                 if ':' in dec:
                     method = dec.split(':', 1)[0]
-                    if method.lower() in WEAK_SS:
+                    method_l = method.lower()
+                    if method_l in WEAK_SS:
                         return False, [f'weak-cipher:{method}']
-                    if method.lower() in SECURE_SS_CIPHERS:
+                    if method_l in SECURE_SS_CIPHERS:
                         return True, [f'secure-cipher:{method}']
+                    # unknown cipher
+                    return False, [f'cipher:{method}']
             except Exception:
                 pass
+        # attempt ss://method:password@host:port
         if '@' in blob and ':' in blob:
             left = blob.split('@', 1)[0]
             if ':' in left:
                 method = left.split(':', 1)[0]
-                if method.lower() in WEAK_SS:
+                method_l = method.lower()
+                if method_l in WEAK_SS:
                     return False, [f'weak-cipher:{method}']
-                if method.lower() in SECURE_SS_CIPHERS:
+                if method_l in SECURE_SS_CIPHERS:
                     return True, [f'secure-cipher:{method}']
-                reasons.append(f'cipher:{method}')
-                return False, reasons
+                return False, [f'cipher:{method}']
     except Exception:
         pass
     return False, ['unknown-ss-method']
@@ -210,10 +223,8 @@ def is_vless_secure(uri: str) -> Tuple[bool, List[str]]:
     if 'sni' in q:
         reasons.append('sni')
     if 'tls' in uri.lower() or 'reality' in uri.lower():
-        if 'tls' not in reasons:
-            reasons.append('tls-or-reality-in-uri')
-    insecure = q.get('insecure', ['0'])[0]
-    if insecure == '1':
+        reasons.append('tls-or-reality-in-uri')
+    if q.get('insecure', ['0'])[0] == '1':
         return False, ['insecure=1']
     if reasons:
         return True, reasons
@@ -222,7 +233,7 @@ def is_vless_secure(uri: str) -> Tuple[bool, List[str]]:
 def is_hysteria_secure(uri: str) -> Tuple[bool, List[str]]:
     q = parse_query(uri)
     reasons = []
-    security = q.get('security', [''])[0].lower()
+    security = q.get('security', [''])[0].lower() if q.get('security') else ''
     if security == 'tls':
         reasons.append('security=tls')
     if q.get('insecure', ['0'])[0] == '1':
@@ -231,9 +242,8 @@ def is_hysteria_secure(uri: str) -> Tuple[bool, List[str]]:
         reasons.append('pinned-cert')
     if 'obfs' in q:
         reasons.append('obfs')
-    if 'tls' in uri.lower() or 'http3' in uri.lower() or 'quic' in uri.lower():
-        if 'security=tls' not in reasons:
-            reasons.append('tls-or-quic-indicator')
+    if 'tls' in uri.lower() or 'quic' in uri.lower() or 'http3' in uri.lower():
+        reasons.append('tls-or-quic-indicator')
     if reasons:
         return True, reasons
     return False, ['no-tls']
@@ -242,19 +252,18 @@ def is_trojan_secure(uri: str) -> Tuple[bool, List[str]]:
     q = parse_query(uri)
     if q.get('insecure', ['0'])[0] == '1':
         return False, ['insecure=1']
-    reasons = []
+    reasons = ['tls-based']
     if 'sni' in q:
         reasons.append('sni')
     if 'tls' in uri.lower() or 'https' in uri.lower():
         reasons.append('tls-in-uri')
-    reasons.insert(0, 'tls-based')
     return True, reasons
 
 def is_vmess_secure_from_json(j: dict) -> Tuple[bool, List[str]]:
     reasons = []
-    if 'tls' in j and j.get('tls'):
+    if j.get('tls'):
         reasons.append('tls')
-    if 'sni' in j and j.get('sni'):
+    if j.get('sni'):
         reasons.append('sni')
     if 'pbk' in j or 'flow' in j:
         reasons.append('reality/pbk/flow')
@@ -264,7 +273,7 @@ def is_vmess_secure_from_json(j: dict) -> Tuple[bool, List[str]]:
         return True, reasons
     return False, ['no-tls-or-reality-detected']
 
-def is_secure(protocol: str, uri_or_json, live_check_hostport: Tuple[str, int] = None) -> Tuple[bool, List[str]]:
+def is_secure(protocol: str, uri_or_json, live_check_hostport: Optional[Tuple[str, int]] = None) -> Tuple[bool, List[str]]:
     protocol = protocol.lower()
     try:
         if protocol == 'ss':
@@ -287,41 +296,111 @@ def is_secure(protocol: str, uri_or_json, live_check_hostport: Tuple[str, int] =
         return False, [f'error:{e}']
     return False, ['unknown-protocol']
 
-def live_check(host: str, port: int, sni: str = None, timeout: float = 5.0) -> Tuple[bool, str]:
+# --- Networking: fetch with optional requests + retries ----------------------
+def build_requests_session(retries: int = 2, backoff: float = 0.5, status_forcelist=(429, 500, 502, 503, 504)):
+    if not requests:
+        return None
+    session = requests.Session()
+    retry = Retry(total=retries, read=retries, connect=retries,
+                  backoff_factor=backoff, status_forcelist=status_forcelist,
+                  allowed_methods=frozenset(['GET', 'POST']))
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('https://', adapter)
+    session.mount('http://', adapter)
+    return session
+
+def fetch_url_sync(url: str, timeout: int = 20, session=None) -> str:
+    logger.debug("Downloading: %s", url)
+    try:
+        if session:
+            resp = session.get(url, timeout=timeout)
+            resp.raise_for_status()
+            return resp.text
+        else:
+            # fallback using urllib
+            import urllib.request
+            with urllib.request.urlopen(url, timeout=timeout) as r:
+                return r.read().decode('utf-8', errors='ignore')
+    except Exception as e:
+        raise RuntimeError(f"Failed to fetch {url}: {e}") from e
+
+def fetch_all(urls: List[str], concurrency: int = 4, timeout: int = 20, use_requests: bool = True) -> Dict[str, Optional[str]]:
+    results: Dict[str, Optional[str]] = {}
+    session = build_requests_session() if (use_requests and requests) else None
+    with ThreadPoolExecutor(max_workers=concurrency) as ex:
+        futures = {ex.submit(fetch_url_sync, u, timeout, session): u for u in urls}
+        for fut in as_completed(futures):
+            u = futures[fut]
+            try:
+                txt = fut.result()
+                results[u] = txt
+                logger.info("[+] Fetched: %s (len=%d)", u, len(txt) if txt else 0)
+            except Exception as e:
+                results[u] = None
+                logger.warning("[!] Failed to fetch %s: %s", u, e)
+    return results
+
+# --- TLS live check ---------------------------------------------------------
+def live_check(host: str, port: int, sni: Optional[str] = None, timeout: float = 5.0) -> Tuple[bool, str]:
     try:
         ctx = ssl.create_default_context()
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
         with socket.create_connection((host, port), timeout=timeout) as sock:
             with ctx.wrap_socket(sock, server_hostname=sni or host) as ssock:
-                cert = ssock.getpeercert()
+                # if handshake OK, return success message
                 return True, 'tls-handshake-ok'
     except Exception as e:
-        return False, str(e)
+        return False, repr(e)
 
-def save_list_to_file(lst: Iterable[str], path: str):
-    with open(path, 'w', encoding='utf-8') as f:
+# --- I/O --------------------------------------------------------------------
+def atomic_write_lines(path: Path, lines: Iterable[str]):
+    tmp = path.with_suffix(path.suffix + '.tmp')
+    with tmp.open('w', encoding='utf-8') as fh:
         count = 0
-        for item in lst:
-            if isinstance(item, (dict, list)):
-                f.write(json.dumps(item, ensure_ascii=False) + '\n')
-            else:
-                f.write(str(item) + '\n')
+        for item in lines:
+            fh.write((json.dumps(item, ensure_ascii=False) + '\n') if isinstance(item, (dict, list)) else (str(item) + '\n'))
             count += 1
-    print(f"[+] Written: {path} ({count})")
+    tmp.replace(path)
+    logger.info("[+] Written: %s (%d lines)", path, count)
 
-def process_text_and_classify(text: str, new_tag: str, classified: dict, seen: dict, jsonl_fh, only_secure: bool, live_check_flag: bool):
+# --- Main processing logic --------------------------------------------------
+def find_uris(text: str) -> List[str]:
+    return [m.strip() for m in URI_RE.findall(text)]
+
+def find_json_configs(text: str) -> List[dict]:
+    results = []
+    for s in extract_json_objects_and_arrays(text):
+        try:
+            parsed = json.loads(s)
+            # if array of objects, extend
+            if isinstance(parsed, list):
+                for it in parsed:
+                    if isinstance(it, dict):
+                        results.append(it)
+            elif isinstance(parsed, dict):
+                results.append(parsed)
+        except Exception:
+            continue
+    return results
+
+def process_text_and_classify(text: str, new_tag: str, classified: Dict[str, List[dict]],
+                              seen: Dict[str, set], jsonl_fh, only_secure: bool, live_check_flag: bool):
+    """
+    Process one large text (from file or URL) and append entries into classified + jsonl file.
+    jsonl_fh must be an open file handle in append mode. This function will write lines to it.
+    """
     def add_entry(protocol: str, uri: str, secure: bool, reasons: List[str], original: str):
         if uri in seen[protocol]:
             return
         seen[protocol].add(uri)
         entry = {'protocol': protocol, 'uri': uri, 'secure': secure, 'reasons': reasons, 'original': original}
-        classified[protocol].append(entry)
-        if not only_secure or entry['secure']:
+        classified.setdefault(protocol, []).append(entry)
+        if (not only_secure) or entry['secure']:
             jsonl_fh.write(json.dumps(entry, ensure_ascii=False) + '\n')
 
     for uri in find_uris(text):
-        scheme = classify_uri_scheme(uri)
+        scheme = uri.split('://', 1)[0].lower()
         if scheme == 'vmess':
             j = decode_vmess_base64(uri)
             if j is not None:
@@ -341,11 +420,9 @@ def process_text_and_classify(text: str, new_tag: str, classified: dict, seen: d
                             secure = secure and ok
                     add_entry('vmess', new_uri, secure, reasons, uri)
                 except Exception:
-                    base = uri.split('#', 1)[0]
-                    add_entry('vmess', base, False, ['vmess-encode-failed'], uri)
+                    add_entry('vmess', uri.split('#', 1)[0], False, ['vmess-encode-failed'], uri)
             else:
-                base = uri.split('#', 1)[0]
-                add_entry('vmess', base, False, ['vmess-not-decodable'], uri)
+                add_entry('vmess', uri.split('#', 1)[0], False, ['vmess-not-decodable'], uri)
         else:
             normalized = normalize_tag_in_uri(uri, new_tag)
             if scheme == 'vless':
@@ -369,9 +446,9 @@ def process_text_and_classify(text: str, new_tag: str, classified: dict, seen: d
                 else:
                     hostport = net
                 if ':' in hostport:
-                    host, port = hostport.rsplit(':', 1)
+                    host, port_s = hostport.rsplit(':', 1)
                     try:
-                        port = int(port)
+                        port = int(port_s)
                         ok, msg = live_check(host, port, sni=parse_qs(parts.query).get('sni', [None])[0])
                         reasons = reasons + [f'live_check:{ok}:{msg}']
                         secure = secure and ok
@@ -387,9 +464,9 @@ def process_text_and_classify(text: str, new_tag: str, classified: dict, seen: d
 
     for jb in find_json_configs(text):
         obj = normalize_tag_in_json_obj(jb, new_tag)
-        lowered_keys = {k.lower(): k for k in obj.keys()}
         js_text = json.dumps(obj, ensure_ascii=False)
-        if any(k in lowered_keys for k in ('ps', 'add', 'port', 'id', 'aid', 'net', 'type', 'v')):
+        # heuristics: presence of vmess-like keys
+        if any(k in obj for k in ('ps', 'add', 'port', 'id', 'aid', 'net', 'type', 'v')):
             try:
                 new_uri = encode_vmess_json_to_uri(obj)
                 secure_flag, reasons = is_vmess_secure_from_json(obj)
@@ -415,21 +492,24 @@ def process_text_and_classify(text: str, new_tag: str, classified: dict, seen: d
             else:
                 add_entry('other', js_text, False, ['json-non-vmess'], js_text)
 
+# --- CLI / main -------------------------------------------------------------
 def gather_urls_from_args(args) -> List[str]:
-    urls = []
+    urls: List[str] = []
     if args.url:
         urls.extend(args.url)
     if args.urls_file:
         try:
-            with open(args.urls_file, 'r', encoding='utf-8') as fh:
+            p = Path(args.urls_file)
+            with p.open('r', encoding='utf-8') as fh:
                 for line in fh:
                     u = line.strip()
                     if u:
                         urls.append(u)
         except Exception as e:
-            print(f"[!] Could not read urls file '{args.urls_file}': {e}")
+            logger.warning("Could not read urls file '%s': %s", args.urls_file, e)
     if not urls:
         urls = DEFAULT_URLS.copy()
+    # deduplicate while preserving order
     seen = set()
     uniq = []
     for u in urls:
@@ -444,71 +524,76 @@ def main():
     p.add_argument('--urls-file', help='Path to file with URLs, one per line')
     p.add_argument('--infile', help='Path to a local file to process (optional)')
     p.add_argument('--outdir', '-o', help='Output directory (default ./classified_output)', default='./classified_output')
-    p.add_argument('--decode-vmess', action='store_true')
-    p.add_argument('--tag', help='Replacement tag (default \"3λΞĐ\")', default='3λΞĐ')
+    p.add_argument('--tag', help='Replacement tag (default "3λΞĐ")', default='3λΞĐ')
     p.add_argument('--only-secure', action='store_true', help='Only write secure configs to outputs (text and JSONL)')
     p.add_argument('--live-check', action='store_true', help='Attempt a simple TLS live-check for secure entries')
+    p.add_argument('--concurrency', type=int, default=4, help='Number of concurrent fetch workers (default 4)')
+    p.add_argument('--verbose', action='store_true', help='Enable debug logging')
     args = p.parse_args()
 
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+
     urls = gather_urls_from_args(args)
-    print(f"[+] Using {len(urls)} URL(s). Infile: {args.infile is not None}")
+    logger.info("Using %d URL(s). Infile: %s", len(urls), bool(args.infile))
 
-    os.makedirs(args.outdir, exist_ok=True)
+    outdir = Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
 
-    classified = {
-        'vmess': [],
-        'vless': [],
-        'vless_invalid': [],
-        'trojan': [],
-        'ss': [],
-        'socks': [],
-        'hysteria2': [],
-        'hysteria': [],
-        'other': []
+    classified: Dict[str, List[dict]] = {
+        'vmess': [], 'vless': [], 'vless_invalid': [], 'trojan': [], 'ss': [],
+        'socks': [], 'hysteria2': [], 'hysteria': [], 'other': []
     }
     seen = {k: set() for k in classified.keys()}
 
-    jsonl_path = os.path.join(args.outdir, 'classified.jsonl')
-    with open(jsonl_path, 'w', encoding='utf-8') as jsonl_fh:
+    jsonl_path = outdir / 'classified.jsonl'
+    # open once for append
+    with jsonl_path.open('w', encoding='utf-8') as jsonl_fh:
+        # process local infile first (if provided)
         if args.infile:
             try:
                 with open(args.infile, 'r', encoding='utf-8') as fh:
                     text = fh.read()
                 process_text_and_classify(text, args.tag, classified, seen, jsonl_fh, args.only_secure, args.live_check)
             except Exception as e:
-                print(f"[!] Failed to read infile '{args.infile}': {e}")
+                logger.warning("Failed to read infile '%s': %s", args.infile, e)
 
-        for u in urls:
+        # fetch URLs concurrently and process results sequentially
+        fetched = fetch_all(urls, concurrency=args.concurrency, timeout=20, use_requests=True)
+        for u, txt in fetched.items():
+            if not txt:
+                logger.debug("Skipping empty fetch result for %s", u)
+                continue
             try:
-                txt = fetch_url(u)
                 process_text_and_classify(txt, args.tag, classified, seen, jsonl_fh, args.only_secure, args.live_check)
             except Exception as e:
-                print(f"[!] Warning: {e}")
-                continue
+                logger.warning("Failed to process content from %s: %s", u, e)
 
-    def extract_uris(entries):
+    # helper to extract URIs (respect only-secure)
+    def extract_uris(entries: List[dict]) -> List[str]:
         if args.only_secure:
             return [e['uri'] for e in entries if e.get('secure')]
         return [e['uri'] for e in entries]
 
-    save_list_to_file(sorted(set(extract_uris(classified['vmess']))), os.path.join(args.outdir, 'vmess.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['vless']))), os.path.join(args.outdir, 'vless.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['vless_invalid']))), os.path.join(args.outdir, 'vless_invalid.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['trojan']))), os.path.join(args.outdir, 'trojan.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['ss']))), os.path.join(args.outdir, 'shadowsocks.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['socks']))), os.path.join(args.outdir, 'socks.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['hysteria2']))), os.path.join(args.outdir, 'hysteria2.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['hysteria']))), os.path.join(args.outdir, 'hysteria.txt'))
-    save_list_to_file(sorted(set(extract_uris(classified['other']))), os.path.join(args.outdir, 'other.txt'))
+    # atomic writes for each list
+    atomic_write_lines(outdir / 'vmess.txt', sorted(set(extract_uris(classified.get('vmess', [])))))
+    atomic_write_lines(outdir / 'vless.txt', sorted(set(extract_uris(classified.get('vless', [])))))
+    atomic_write_lines(outdir / 'vless_invalid.txt', sorted(set(extract_uris(classified.get('vless_invalid', [])))))
+    atomic_write_lines(outdir / 'trojan.txt', sorted(set(extract_uris(classified.get('trojan', [])))))
+    atomic_write_lines(outdir / 'shadowsocks.txt', sorted(set(extract_uris(classified.get('ss', [])))))
+    atomic_write_lines(outdir / 'socks.txt', sorted(set(extract_uris(classified.get('socks', [])))))
+    atomic_write_lines(outdir / 'hysteria2.txt', sorted(set(extract_uris(classified.get('hysteria2', [])))))
+    atomic_write_lines(outdir / 'hysteria.txt', sorted(set(extract_uris(classified.get('hysteria', [])))))
+    atomic_write_lines(outdir / 'other.txt', sorted(set(extract_uris(classified.get('other', [])))))
 
-    print('\\n=== SUMMARY ===')
-    for k in ['vmess', 'vless', 'vless_invalid', 'trojan', 'ss', 'socks', 'hysteria2', 'hysteria', 'other']:
-        count = len([e for e in classified[k] if (not args.only_secure) or e.get('secure')])
-        print(f"{k:15s}: {count}")
-    print(f"\\nOutput directory: {os.path.abspath(args.outdir)}")
-    print(f"Structured output (JSONL): {jsonl_path}")
-    print('Done.')
+    # summary
+    logger.info("=== SUMMARY ===")
+    for k in ('vmess', 'vless', 'vless_invalid', 'trojan', 'ss', 'socks', 'hysteria2', 'hysteria', 'other'):
+        count = len([e for e in classified.get(k, []) if (not args.only_secure) or e.get('secure')])
+        logger.info("%-15s: %d", k, count)
+    logger.info("Output directory: %s", outdir.resolve())
+    logger.info("Structured output (JSONL): %s", jsonl_path.resolve())
+    logger.info("Done.")
 
 if __name__ == '__main__':
     main()
-# ---------- END SCRIPT ----------
