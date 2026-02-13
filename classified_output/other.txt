@@ -1,3 +1,0 @@
-{"scMaxEachPostBytes": "1000000", "scMaxConcurrentPosts": 100, "scMinPostsIntervalMs": 30, "xPaddingBytes": "100-1000", "noGRPCHeader": false}
-{"scMaxEachPostBytes": 1000000, "scMaxConcurrentPosts": 100, "scMinPostsIntervalMs": 30, "xPaddingBytes": "100-1000", "noGRPCHeader": false}
-{"scMaxEachPostBytes": 16777216, "scMaxConcurrentPosts": 1024, "scMinPostsIntervalMs": 1, "xPaddingBytes": "200-2000", "noGRPCHeader": true}
