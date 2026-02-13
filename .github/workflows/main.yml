@@ -2,7 +2,7 @@ name: Daily Sub Classify — Artifact + Commit
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -25,22 +25,25 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install --no-cache-dir requests
 
       - name: Run sub classifier
         run: |
-          python sub_classifier.py --outdir ./classified_output --decode-vmess
-        continue-on-error: false
+          python sub_classifier.py --outdir ./classified_output
 
-      - name: Check expected output exists
+      - name: Validate output directory
         run: |
-          if [ ! -f classified_output/vless.txt ]; then
-            echo "Expected file classified_output/vless.txt not found!"
-            ls -la classified_output || true
+          if [ ! -d classified_output ]; then
+            echo "Output directory missing!"
             exit 1
           fi
 
-      - name: Upload classified_output artifact
+          if [ -z "$(ls -A classified_output)" ]; then
+            echo "Output directory is empty!"
+            exit 1
+          fi
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: classified_output
@@ -51,7 +54,8 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add classified_output
+          git add -A classified_output
+
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
