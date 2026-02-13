@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ---------- BEGIN REFACTORED SCRIPT ----------
+# ---------- BEGIN FINAL SCRIPT ----------
 
 import os
 import re
@@ -43,15 +43,21 @@ URI_RE = re.compile(
 FLAG_RE = re.compile(r'([\U0001F1E6-\U0001F1FF]{2})')
 
 SECURE_SS_CIPHERS = {
-    'chacha20-ietf-poly1305',
-    'xchacha20-ietf-poly1305',
-    'aes-128-gcm',
-    'aes-256-gcm',
-    'aead_chacha20_ietf_poly1305',
+    "chacha20-ietf-poly1305",
+    "xchacha20-ietf-poly1305",
+    "aes-128-gcm",
+    "aes-256-gcm",
+    "aead_chacha20_ietf_poly1305",
 }
 
-WEAK_SS = {'rc4-md5', 'aes-128-cfb', 'aes-192-cfb'}
+WEAK_SS = {"rc4-md5", "aes-128-cfb", "aes-192-cfb"}
 
+# Normalize equivalent schemes
+SCHEME_MAP = {
+    "socks5": "socks",
+}
+
+# Live check cache
 _live_cache: Dict[Tuple[str, int, str], Tuple[bool, str]] = {}
 
 # ---------------- Data Model ----------------
@@ -146,8 +152,7 @@ def classify_uri_scheme(uri: str) -> str:
 def parse_query(uri: str) -> dict:
     return {k: v for k, v in parse_qs(urlsplit(uri).query).items()}
 
-# ---------------- Tag Normalization ----------------
-# (UNCHANGED LOGIC)
+# ---------------- Tag Normalization (UNCHANGED) ----------------
 
 def normalize_fragment(fragment: str, new_tag: str) -> str:
     if not fragment:
@@ -157,7 +162,7 @@ def normalize_fragment(fragment: str, new_tag: str) -> str:
     if new_tag in frag:
         return frag
 
-    delimiters = ['::', '-', '_']
+    delimiters = ["::", "-", "_"]
     suffix = None
 
     for d in delimiters:
@@ -279,13 +284,15 @@ def is_secure(protocol: str, data):
 
     return False, ["unknown-protocol"]
 
-# ---------------- Core Pipeline ----------------
+# ---------------- Output ----------------
 
 def save_list_to_file(lst: Iterable[str], path: str):
     with open(path, "w", encoding="utf-8") as f:
         for item in lst:
             f.write(str(item) + "\n")
     log.info(f"Written: {path}")
+
+# ---------------- Core Pipeline ----------------
 
 def process_text(text: str, tag: str,
                  classified: dict,
@@ -295,18 +302,24 @@ def process_text(text: str, tag: str,
                  live_flag: bool):
 
     def add(entry: ConfigEntry):
-        if entry.uri in seen[entry.protocol]:
+        proto = entry.protocol if entry.protocol in seen else "other"
+
+        if entry.uri in seen[proto]:
             return
 
-        seen[entry.protocol].add(entry.uri)
-        classified[entry.protocol].append(entry)
+        entry.protocol = proto
+        seen[proto].add(entry.uri)
+        classified[proto].append(entry)
 
         if not only_secure or entry.secure:
-            jsonl_fh.write(json.dumps(entry.__dict__,
-                                      ensure_ascii=False) + "\n")
+            jsonl_fh.write(
+                json.dumps(entry.__dict__, ensure_ascii=False) + "\n"
+            )
 
     for uri in find_uris(text):
         scheme = classify_uri_scheme(uri)
+        scheme = SCHEME_MAP.get(scheme, scheme)
+
         normalized = normalize_tag_in_uri(uri, tag)
 
         if scheme == "vmess":
@@ -327,7 +340,11 @@ def process_text(text: str, tag: str,
         elif scheme == "ss":
             secure, reasons = is_secure("ss", normalized)
 
+        elif scheme in ("socks", "hysteria", "hysteria2"):
+            secure, reasons = False, ["no-crypto-or-unsupported"]
+
         else:
+            scheme = "other"
             secure, reasons = False, ["unsupported"]
 
         if live_flag and secure:
@@ -340,15 +357,27 @@ def process_text(text: str, tag: str,
                     ok, msg = live_check(host, int(port))
                     secure &= ok
                     reasons.append(f"live:{msg}")
-                except:
-                    pass
+                except Exception as e:
+                    log.debug(f"Live check failed: {e}")
 
         add(ConfigEntry(scheme, normalized, secure, reasons, uri))
+
+    # Also process standalone JSON objects (e.g. VMess blobs)
+    for obj in find_json_configs(text):
+        try:
+            j = normalize_tag_in_json_obj(obj, tag)
+            secure, reasons = is_vmess_secure_from_json(j)
+            uri = encode_vmess_json_to_uri(j)
+            add(ConfigEntry("vmess", uri, secure, reasons, json.dumps(obj)))
+        except Exception as e:
+            log.debug(f"JSON config skipped: {e}")
 
 # ---------------- CLI ----------------
 
 def main():
-    p = argparse.ArgumentParser()
+    p = argparse.ArgumentParser(
+        description="Classify subscription configs and normalize tags"
+    )
     p.add_argument("--url", "-u", action="append")
     p.add_argument("--infile")
     p.add_argument("-o", "--outdir", default="./classified_output")
@@ -361,33 +390,55 @@ def main():
     urls = args.url or DEFAULT_URLS
     os.makedirs(args.outdir, exist_ok=True)
 
-    classified = {k: [] for k in
-                  ["vmess", "vless", "trojan", "ss", "other"]}
+    protocols = [
+        "vmess",
+        "vless",
+        "trojan",
+        "ss",
+        "socks",
+        "hysteria",
+        "hysteria2",
+        "other",
+    ]
 
-    seen = {k: set() for k in classified}
+    classified = {k: [] for k in protocols}
+    seen = {k: set() for k in protocols}
 
-    jsonl = os.path.join(args.outdir, "classified.jsonl")
+    jsonl_path = os.path.join(args.outdir, "classified.jsonl")
 
-    with open(jsonl, "w", encoding="utf-8") as fh:
+    with open(jsonl_path, "w", encoding="utf-8") as fh:
 
         if args.infile:
             with open(args.infile, encoding="utf-8") as f:
-                process_text(f.read(), args.tag,
-                             classified, seen, fh,
-                             args.only_secure,
-                             args.live_check)
+                process_text(
+                    f.read(),
+                    args.tag,
+                    classified,
+                    seen,
+                    fh,
+                    args.only_secure,
+                    args.live_check,
+                )
 
         for u in urls:
-            process_text(fetch_url(u), args.tag,
-                         classified, seen, fh,
-                         args.only_secure,
-                         args.live_check)
+            text = fetch_url(u)
+            process_text(
+                text,
+                args.tag,
+                classified,
+                seen,
+                fh,
+                args.only_secure,
+                args.live_check,
+            )
 
     for proto, entries in classified.items():
         save_list_to_file(
-            sorted({e.uri for e in entries
-                    if not args.only_secure or e.secure}),
-            os.path.join(args.outdir, f"{proto}.txt")
+            sorted({
+                e.uri for e in entries
+                if not args.only_secure or e.secure
+            }),
+            os.path.join(args.outdir, f"{proto}.txt"),
         )
 
     log.info("Done.")
@@ -395,4 +446,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# ---------- END REFACTORED SCRIPT ----------
+# ---------- END FINAL SCRIPT ----------
