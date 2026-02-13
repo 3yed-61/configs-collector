@@ -17,8 +17,9 @@ except Exception:
     import urllib.request
 
 DEFAULT_URLS = [
-    "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt#xsfilternet",
-    "https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt"
+    "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt",
+    "https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt",
+    "https://github.com/Epodonios/v2ray-configs/raw/main/All_Configs_Sub.txt"
 ]
 
 URI_RE = re.compile(r"\b(?:vmess|vless|trojan|ss|socks5|socks|hysteria2|hysteria)://[^\s'\"]+", re.IGNORECASE)
