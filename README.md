@@ -1,4 +1,3 @@
-
 <div align="center">
 
 <!-- هدر انیمیشنی پویا -->
@@ -19,152 +18,236 @@
 
 <hr>
 
-<h2 dir="rtl" align="center">⚙️ هاب دریافت اشتراک و کدهای QR تعاملی</h2>
+<h2 dir="rtl" align="center">📡 کنسول مدیریت و دریافت فایل‌های اشتراک</h2>
 <p dir="rtl" align="center">
-جهت مشاهده جزییات هر پروتکل، کدهای QR و گزینه‌های وارد کردن سریع، روی عنوان پروتکل مورد نظر کلیک کنید تا پنل مربوطه باز شود.
+برای اتصال سریع، بارکد پروتکل مورد نظر را اسکن کنید یا روی دکمه‌های وارد کردن خودکار و کپی یک‌کلیکه ضربه بزنید.
 </p>
 
-<br>
-
-<!-- کارت تعاملی VLESS -->
-<details>
-  <summary><b dir="rtl">🛡️ پروتکل VLESS (پیشنهادی)</b></summary>
-  <br>
-  <div align="center">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt" width="200" height="200" style="border: 2px solid #58a6ff; border-radius: 8px;" alt="VLESS QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt#VLESS"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
-    <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
+<table align="center" width="100%">
+  <thead>
+    <tr style="background-color: #1f2328;">
+      <th width="30%" align="center">📡 پروتکل و اطلاعات فنی</th>
+      <th width="30%" align="center">📷 اسکن سریع (QR Code)</th>
+      <th width="40%" align="center">⚡ وارد کردن سریع و کپی لینک</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- VLESS Row -->
+    <tr>
+      <td align="center">
+        <br>
+        <img src="https://img.shields.io/badge/PROTOCOL-VLESS-blue?style=for-the-badge&logo=virtualbox&logoColor=white" alt="VLESS" />
+        <br><br>
+        <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+        <img src="https://img.shields.io/badge/Update-Every%203h-blue?style=flat-square" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt" width="150" height="150" style="border-radius: 8px; border: 1px solid #30363d;" alt="VLESS QR" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt#VLESS"><img src="https://img.shields.io/badge/Hiddify_Import-FF5722?style=flat&logo=hiddify&logoColor=white" height="26" /></a>
+        <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt"><img src="https://img.shields.io/badge/Sing_Box_Import-2196F3?style=flat&logo=singbox&logoColor=white" height="26" /></a>
+        <br><br>
+        <b dir="rtl" style="font-size: 11px;">📋 کپی سریع با یک کلیک (روی آیکون کپی سمت راست کلیک کنید):</b>
 
 ```text
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
 ```
 
-  </div>
-</details>
-
-<!-- کارت تعاملی VMESS -->
-<details>
-  <summary><b dir="rtl">🚀 پروتکل VMess</b></summary>
-  <br>
-  <div align="center">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt" width="200" height="200" style="border: 2px solid #f0883e; border-radius: 8px;" alt="VMess QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt#VMess"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
-    <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
+      </td>
+    </tr>
+    <!-- VMESS Row -->
+    <tr>
+      <td align="center">
+        <br>
+        <img src="https://img.shields.io/badge/PROTOCOL-VMESS-orange?style=for-the-badge&logo=vbox&logoColor=white" alt="VMESS" />
+        <br><br>
+        <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+        <img src="https://img.shields.io/badge/Update-Every%203h-blue?style=flat-square" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt" width="150" height="150" style="border-radius: 8px; border: 1px solid #30363d;" alt="VMess QR" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt#VMess"><img src="https://img.shields.io/badge/Hiddify_Import-FF5722?style=flat&logo=hiddify&logoColor=white" height="26" /></a>
+        <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt"><img src="https://img.shields.io/badge/Sing_Box_Import-2196F3?style=flat&logo=singbox&logoColor=white" height="26" /></a>
+        <br><br>
+        <b dir="rtl" style="font-size: 11px;">📋 کپی سریع با یک کلیک (روی آیکون کپی سمت راست کلیک کنید):</b>
 
 ```text
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt
 ```
 
-  </div>
-</details>
-
-<!-- کارت تعاملی TROJAN -->
-<details>
-  <summary><b dir="rtl">🔒 پروتکل Trojan</b></summary>
-  <br>
-  <div align="center">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt" width="200" height="200" style="border: 2px solid #bc85a3; border-radius: 8px;" alt="Trojan QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt#Trojan"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
-    <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
+      </td>
+    </tr>
+    <!-- TROJAN Row -->
+    <tr>
+      <td align="center">
+        <br>
+        <img src="https://img.shields.io/badge/PROTOCOL-TROJAN-purple?style=for-the-badge&logo=shield&logoColor=white" alt="Trojan" />
+        <br><br>
+        <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+        <img src="https://img.shields.io/badge/Update-Every%203h-blue?style=flat-square" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt" width="150" height="150" style="border-radius: 8px; border: 1px solid #30363d;" alt="Trojan QR" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt#Trojan"><img src="https://img.shields.io/badge/Hiddify_Import-FF5722?style=flat&logo=hiddify&logoColor=white" height="26" /></a>
+        <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt"><img src="https://img.shields.io/badge/Sing_Box_Import-2196F3?style=flat&logo=singbox&logoColor=white" height="26" /></a>
+        <br><br>
+        <b dir="rtl" style="font-size: 11px;">📋 کپی سریع با یک کلیک (روی آیکون کپی سمت راست کلیک کنید):</b>
 
 ```text
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt
 ```
 
-  </div>
-</details>
-
-<!-- کارت تعاملی SHADOWSOCKS -->
-<details>
-  <summary><b dir="rtl">🪁 پروتکل Shadowsocks</b></summary>
-  <br>
-  <div align="center">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt" width="200" height="200" style="border: 2px solid #a29bfe; border-radius: 8px;" alt="Shadowsocks QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt#Shadowsocks"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
-    <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
+      </td>
+    </tr>
+    <!-- SHADOWSOCKS Row -->
+    <tr>
+      <td align="center">
+        <br>
+        <img src="https://img.shields.io/badge/PROTOCOL-SHADOWSOCKS-lightgrey?style=for-the-badge&logo=shadowsocks&logoColor=white" alt="Shadowsocks" />
+        <br><br>
+        <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+        <img src="https://img.shields.io/badge/Update-Every%203h-blue?style=flat-square" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt" width="150" height="150" style="border-radius: 8px; border: 1px solid #30363d;" alt="Shadowsocks QR" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt#Shadowsocks"><img src="https://img.shields.io/badge/Hiddify_Import-FF5722?style=flat&logo=hiddify&logoColor=white" height="26" /></a>
+        <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt"><img src="https://img.shields.io/badge/Sing_Box_Import-2196F3?style=flat&logo=singbox&logoColor=white" height="26" /></a>
+        <br><br>
+        <b dir="rtl" style="font-size: 11px;">📋 کپی سریع با یک کلیک (روی آیکون کپی سمت راست کلیک کنید):</b>
 
 ```text
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt
 ```
 
-  </div>
-</details>
-
-<!-- کارت تعاملی HYSTERIA -->
-<details>
-  <summary><b dir="rtl">⚡ پروتکل Hysteria 1</b></summary>
-  <br>
-  <div align="center">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt" width="200" height="200" style="border: 2px solid #ff7675; border-radius: 8px;" alt="Hysteria QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt#Hysteria"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
-    <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
+      </td>
+    </tr>
+    <!-- HYSTERIA Row -->
+    <tr>
+      <td align="center">
+        <br>
+        <img src="https://img.shields.io/badge/PROTOCOL-HYSTERIA_1-red?style=for-the-badge&logo=fastapi&logoColor=white" alt="Hysteria" />
+        <br><br>
+        <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+        <img src="https://img.shields.io/badge/Update-Every%203h-blue?style=flat-square" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt" width="150" height="150" style="border-radius: 8px; border: 1px solid #30363d;" alt="Hysteria QR" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt#Hysteria"><img src="https://img.shields.io/badge/Hiddify_Import-FF5722?style=flat&logo=hiddify&logoColor=white" height="26" /></a>
+        <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt"><img src="https://img.shields.io/badge/Sing_Box_Import-2196F3?style=flat&logo=singbox&logoColor=white" height="26" /></a>
+        <br><br>
+        <b dir="rtl" style="font-size: 11px;">📋 کپی سریع با یک کلیک (روی آیکون کپی سمت راست کلیک کنید):</b>
 
 ```text
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt
 ```
 
-  </div>
-</details>
-
-<!-- کارت تعاملی HYSTERIA 2 -->
-<details>
-  <summary><b dir="rtl">🔥 پروتکل Hysteria 2</b></summary>
-  <br>
-  <div align="center">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt" width="200" height="200" style="border: 2px solid #e17055; border-radius: 8px;" alt="Hysteria 2 QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt#Hysteria2"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
-    <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
+      </td>
+    </tr>
+    <!-- HYSTERIA 2 Row -->
+    <tr>
+      <td align="center">
+        <br>
+        <img src="https://img.shields.io/badge/PROTOCOL-HYSTERIA_2-darkred?style=for-the-badge&logo=fastapi&logoColor=white" alt="Hysteria 2" />
+        <br><br>
+        <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square" />
+        <img src="https://img.shields.io/badge/Update-Every%203h-blue?style=flat-square" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt" width="150" height="150" style="border-radius: 8px; border: 1px solid #30363d;" alt="Hysteria 2 QR" />
+        <br><br>
+      </td>
+      <td align="center">
+        <br>
+        <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt#Hysteria2"><img src="https://img.shields.io/badge/Hiddify_Import-FF5722?style=flat&logo=hiddify&logoColor=white" height="26" /></a>
+        <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt"><img src="https://img.shields.io/badge/Sing_Box_Import-2196F3?style=flat&logo=singbox&logoColor=white" height="26" /></a>
+        <br><br>
+        <b dir="rtl" style="font-size: 11px;">📋 کپی سریع با یک کلیک (روی آیکون کپی سمت راست کلیک کنید):</b>
 
 ```text
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt
 ```
 
-  </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+<details>
+<summary><b dir="rtl">📋 پنل دسترسی متنی یکپارچه (جهت کپی دستی)</b></summary>
+<br>
+<pre style="background: #24292e; color: #e1e4e8; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 11px; text-align: left; border: 1px solid #444d56;">
+# VLESS Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
+
+# VMESS Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt
+
+# Trojan Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt
+
+# Shadowsocks Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt
+
+# Hysteria Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt
+
+# Hysteria 2 Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt
+</pre>
 </details>
 
 ---
 
-<h2 dir="rtl">💻 ابزارهای سازگار و راهنمای راه‌اندازی</h2>
+<h2 dir="rtl">💻 کلاینت‌های سازگار و نرم‌افزارها</h2>
 
 <p dir="rtl">
-شما می‌توانید با وارد کردن هر یک از لینک‌های فوق در بخش Subscription نرم‌افزارهای زیر، کانفیگ‌ها را دریافت نمایید:
+لینک‌های فوق از قابلیت به‌روزرسانی خودکار (Subscription) پشتیبانی می‌کنند و در نرم‌افزارهای زیر قابل اجرا هستند:
 </p>
 
-* 🤖 **اندروید:** `v2rayNG` • `Hiddify` • `NekoBox` • `Sing-box`
-* 🍏 **آی‌او‌اس (iOS):** `FoXray` • `Streisand` • `V2Box` • `Shadowrocket`
-* 💻 **ویندوز:** `v2rayN` • `Nekoray` • `Hiddify`
-* 🖥️ **مک (macOS):** `V2rayU` • `NekoBox` • `Hiddify` • `Sing-box`
+* **اندروید:** `v2rayNG` • `Hiddify` • `NekoBox` • `Sing-box`
+* **آی‌او‌اس:** `FoXray` • `Streisand` • `V2Box` • `Shadowrocket`
+* **ویندوز:** `v2rayN` • `Nekoray` • `Hiddify`
+* **مک:** `V2rayU` • `NekoBox` • `Hiddify` • `Sing-box`
 
 ---
 
 <h2 dir="rtl">⚠️ سلب مسئولیت (Disclaimer)</h2>
 
 <p dir="rtl">
-هدف این پروژه افزایش حریم خصوصی و امنیت دیجیتال به‌صورت آزمایشی است. استفاده از محتوای این مخزن بر عهده خود کاربر می‌باشد و توسعه‌دهنده مسئولیتی در قبال نحوه استفاده از آن ندارد.
+این پروژه برای اهداف پژوهشی و بهبود امنیت ارتباطات توسعه یافته است. تایید کیفیت و استفاده درست از خروجی‌های این ابزار خودکار بر عهده کاربر نهایی است و پروژه مسئولیتی در قبال چگونگی بهره‌برداری از محتوای آن نمی‌پذیرد.
 </p>
 
 ---
