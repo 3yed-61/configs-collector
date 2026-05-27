@@ -40,7 +40,7 @@
 
       ```POV-Ray SDL
       
-      https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt</pre>
+      https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
       
     ```
   </div>
