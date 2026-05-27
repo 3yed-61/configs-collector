@@ -118,10 +118,9 @@
 ---
 
 <details>
-<summary><b dir="rtl">📋 پنل دسترسی متنی یکپارچه (جهت کپی سریع و دستی)</b></summary>
+<summary><b dir="rtl">📋 پنل دسترسی متنی یکپارچه (جهت کپی دستی)</b></summary>
 <br>
-
-```text
+<pre>
 # VLESS Sub
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
 
@@ -139,14 +138,34 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
 
 # Hysteria 2 Sub
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt
-
+</pre>
 </details>
 
+---
+
 <h2 dir="rtl">💻 کلاینت‌های سازگار و نرم‌افزارها</h2>
+
 <p dir="rtl">
 لینک‌های فوق از قابلیت به‌روزرسانی خودکار (Subscription) پشتیبانی می‌کنند و در نرم‌افزارهای زیر قابل اجرا هستند:
 </p>
-اندروید: v2rayNG • Hiddify • NekoBox • Sing-box
-آی‌او‌اس: FoXray • Streisand • V2Box • Shadowrocket
-ویندوز: v2rayN • Nekoray • Hiddify
-مک: V2rayU • NekoBox • Hiddify • Sing-box
+
+* **اندروید:** `v2rayNG` • `Hiddify` • `NekoBox` • `Sing-box`
+* **آی‌او‌اس:** `FoXray` • `Streisand` • `V2Box` • `Shadowrocket`
+* **ویندوز:** `v2rayN` • `Nekoray` • `Hiddify`
+* **مک:** `V2rayU` • `NekoBox` • `Hiddify` • `Sing-box`
+
+---
+
+<h2 dir="rtl">⚠️ سلب مسئولیت (Disclaimer)</h2>
+
+<p dir="rtl">
+این پروژه برای اهداف پژوهشی و بهبود امنیت ارتباطات توسعه یافته است. تایید کیفیت و استفاده درست از خروجی‌های این ابزار خودکار بر عهده کاربر نهایی است و پروژه مسئولیتی در قبال چگونگی بهره‌برداری از محتوای آن نمی‌پذیرد.
+</p>
+
+---
+
+<div align="center">
+
+[![Star History Chart](https://api.star-history.com/svg?repos=3yed-61/configs-collector&type=Date)](https://star-history.com/#3yed-61/configs-collector)
+
+</div>
