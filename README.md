@@ -37,7 +37,10 @@
     <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
     <br><br>
     <p dir="rtl"><b>📋 آدرس مستقیم اشتراک (دبل‌کلیک روی کادر زیر):</b></p>
-    <pre style="background: #0d1117; color: #58a6ff; padding: 12px; border-radius: 8px; border: 1px solid #30363d; font-family: monospace; font-size: 11px; max-width: 550px; text-align: left; word-break: break-all; margin: 10px auto;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt</pre>
+    <pre style="background: #0d1117; color: #58a6ff; padding: 12px; border-radius: 8px; border: 1px solid #30363d; font-family: monospace; font-size: 11px; max-width: 550px; text-align: left; word-break: break-all; margin: 10px auto;">
+      ```POV-Ray SDL
+      https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt</pre>
+    ```
   </div>
 </details>
 
