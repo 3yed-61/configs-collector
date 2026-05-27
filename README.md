@@ -32,8 +32,8 @@
       <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt#VLESS"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=flat&logo=hiddify" alt="Import to Hiddify" /></a>
       <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=flat&logo=singbox" alt="Import to Sing-Box" /></a>
       <br><br>
-      <b dir="rtl">📋 کپی آدرس مستقیم (کلیک سه‌باره روی متن):</b><br>
-      <code style="display:block; background:#1e1e1e; color:#00ff66; padding:8px; border-radius:5px; font-size:11px; word-break:break-all; max-width:320px; border: 1px solid #333; font-family: monospace;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt</code>
+      <b dir="rtl">📋 کپی آدرس اشتراک (دبل‌کلیک روی کادر زیر):</b><br>
+      <pre style="background: #24292e; color: #e1e4e8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all; text-align: left; margin: 10px auto; max-width: 90%; border: 1px solid #444d56;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt</pre>
       <br>
     </td>
     <td align="center" width="50%">
@@ -46,8 +46,8 @@
       <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt#VMess"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=flat&logo=hiddify" alt="Import to Hiddify" /></a>
       <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=flat&logo=singbox" alt="Import to Sing-Box" /></a>
       <br><br>
-      <b dir="rtl">📋 کپی آدرس مستقیم (کلیک سه‌باره روی متن):</b><br>
-      <code style="display:block; background:#1e1e1e; color:#00ff66; padding:8px; border-radius:5px; font-size:11px; word-break:break-all; max-width:320px; border: 1px solid #333; font-family: monospace;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt</code>
+      <b dir="rtl">📋 کپی آدرس اشتراک (دبل‌کلیک روی کادر زیر):</b><br>
+      <pre style="background: #24292e; color: #e1e4e8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all; text-align: left; margin: 10px auto; max-width: 90%; border: 1px solid #444d56;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt</pre>
       <br>
     </td>
   </tr>
@@ -63,8 +63,8 @@
       <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt#Trojan"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=flat&logo=hiddify" alt="Import to Hiddify" /></a>
       <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=flat&logo=singbox" alt="Import to Sing-Box" /></a>
       <br><br>
-      <b dir="rtl">📋 کپی آدرس مستقیم (کلیک سه‌باره روی متن):</b><br>
-      <code style="display:block; background:#1e1e1e; color:#00ff66; padding:8px; border-radius:5px; font-size:11px; word-break:break-all; max-width:320px; border: 1px solid #333; font-family: monospace;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt</code>
+      <b dir="rtl">📋 کپی آدرس اشتراک (دبل‌کلیک روی کادر زیر):</b><br>
+      <pre style="background: #24292e; color: #e1e4e8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all; text-align: left; margin: 10px auto; max-width: 90%; border: 1px solid #444d56;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt</pre>
       <br>
     </td>
     <td align="center" width="50%">
@@ -77,8 +77,8 @@
       <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt#Shadowsocks"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=flat&logo=hiddify" alt="Import to Hiddify" /></a>
       <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=flat&logo=singbox" alt="Import to Sing-Box" /></a>
       <br><br>
-      <b dir="rtl">📋 کپی آدرس مستقیم (کلیک سه‌باره روی متن):</b><br>
-      <code style="display:block; background:#1e1e1e; color:#00ff66; padding:8px; border-radius:5px; font-size:11px; word-break:break-all; max-width:320px; border: 1px solid #333; font-family: monospace;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt</code>
+      <b dir="rtl">📋 کپی آدرس اشتراک (دبل‌کلیک روی کادر زیر):</b><br>
+      <pre style="background: #24292e; color: #e1e4e8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all; text-align: left; margin: 10px auto; max-width: 90%; border: 1px solid #444d56;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt</pre>
       <br>
     </td>
   </tr>
@@ -94,8 +94,8 @@
       <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt#Hysteria"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=flat&logo=hiddify" alt="Import to Hiddify" /></a>
       <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=flat&logo=singbox" alt="Import to Sing-Box" /></a>
       <br><br>
-      <b dir="rtl">📋 کپی آدرس مستقیم (کلیک سه‌باره روی متن):</b><br>
-      <code style="display:block; background:#1e1e1e; color:#00ff66; padding:8px; border-radius:5px; font-size:11px; word-break:break-all; max-width:320px; border: 1px solid #333; font-family: monospace;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt</code>
+      <b dir="rtl">📋 کپی آدرس اشتراک (دبل‌کلیک روی کادر زیر):</b><br>
+      <pre style="background: #24292e; color: #e1e4e8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all; text-align: left; margin: 10px auto; max-width: 90%; border: 1px solid #444d56;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt</pre>
       <br>
     </td>
     <td align="center" width="50%">
@@ -108,8 +108,8 @@
       <a href="hiddify://import/https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt#Hysteria2"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=flat&logo=hiddify" alt="Import to Hiddify" /></a>
       <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=flat&logo=singbox" alt="Import to Sing-Box" /></a>
       <br><br>
-      <b dir="rtl">📋 کپی آدرس مستقیم (کلیک سه‌باره روی متن):</b><br>
-      <code style="display:block; background:#1e1e1e; color:#00ff66; padding:8px; border-radius:5px; font-size:11px; word-break:break-all; max-width:320px; border: 1px solid #333; font-family: monospace;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt</code>
+      <b dir="rtl">📋 کپی آدرس اشتراک (دبل‌کلیک روی کادر زیر):</b><br>
+      <pre style="background: #24292e; color: #e1e4e8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 11px; word-break: break-all; text-align: left; margin: 10px auto; max-width: 90%; border: 1px solid #444d56;">https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt</pre>
       <br>
     </td>
   </tr>
@@ -120,7 +120,7 @@
 <details>
 <summary><b dir="rtl">📋 پنل دسترسی متنی یکپارچه (جهت کپی دستی)</b></summary>
 <br>
-<pre>
+<pre style="background: #24292e; color: #e1e4e8; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 11px; text-align: left; border: 1px solid #444d56;">
 # VLESS Sub
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
 
