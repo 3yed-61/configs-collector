@@ -1,9 +1,9 @@
 <div align="center">
 
-# ⚡ Configs Collector | جمع‌آوری‌کننده خودکار کانفیگ‌ها
+# ⚡ Configs Collector | جمع‌آوری‌کننده کانفیگ‌های شبکه‌ای
 
 <p dir="rtl">
-یک ابزار خودکار برای جمع‌آوری، پاک‌سازی، تست و دسته‌بندی کانفیگ‌های شبکه‌های مبتنی بر V2Ray/Xray از منابع عمومی با آپدیت‌های مداوم.
+یک ابزار خودکار جهت جمع‌آوری، بررسی کیفیت، فیلتر کردن و دسته‌بندی کانفیگ‌های ارتباطی از منابع عمومی با به‌روزرسانی مداوم.
 </p>
 
 [![Github Stars](https://img.shields.io/github/stars/3yed-61/configs-collector?style=flat-square)](https://github.com/3yed-61/configs-collector/stargazers)
@@ -14,79 +14,79 @@
 
 <hr>
 
-<h2 dir="rtl">📋 فهرست اشتراک‌ها و کدهای QR</h2>
+<h2 dir="rtl">📋 لینک‌های اشتراک و کدهای QR جهت دسترسی سریع</h2>
 
 <p dir="rtl">
-برای استفاده از کانفیگ‌ها، کافی است لینک کپی‌شده پروتکل موردنظر را در نرم‌افزار کلاینت خود وارد کنید یا با استفاده از دوربین گوشی، کد QR مربوطه را مستقیماً اسکن نمایید.
+برای اضافه کردن کانفیگ‌ها به کلاینت خود، می‌توانید روی گزینه‌ی <b>«کپی لینک»</b> کلیک کرده و آدرس آن را کپی کنید یا مستقیماً تصویر <b>کد QR</b> زیر آن را با دوربین نرم‌افزار خود اسکن نمایید.
 </p>
 
 <table dir="rtl" align="center">
   <thead>
     <tr>
       <th align="center">نوع پروتکل</th>
-      <th align="center">لینک مستقیم اشتراک (Raw Link)</th>
-      <th align="center">کد QR (اسکن مستقیم با موبایل)</th>
+      <th align="center">لینک اشتراک (Raw)</th>
+      <th align="center">کد QR (اسکن با گوشی)</th>
     </tr>
   </thead>
   <tbody>
+    <!-- VLESS -->
     <tr>
       <td align="center"><b>VLESS</b></td>
-      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt">لینک اشتراک VLESS</a></td>
-      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt" width="110" height="110" alt="VLESS QR"/></td>
+      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt">کپی لینک VLESS</a></td>
+      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt" width="110" height="110" alt="VLESS QR"/></td>
     </tr>
     <!-- VMESS -->
     <tr>
       <td align="center"><b>VMess</b></td>
-      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/main/protocols/vmess](https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt">لینک اشتراک VMess</a></td>
-      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Fmain%2Fprotocols%2Fvmess" width="110" height="110" alt="VMess QR"/></td>
+      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt">کپی لینک VMess</a></td>
+      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt" width="110" height="110" alt="VMess QR"/></td>
     </tr>
     <!-- TROJAN -->
     <tr>
       <td align="center"><b>Trojan</b></td>
-      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/main/protocols/trojan](https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt">لینک اشتراک Trojan</a></td>
-      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Fmain%2Fprotocols%2Ftrojan" width="110" height="110" alt="Trojan QR"/></td>
+      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt">کپی لینک Trojan</a></td>
+      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt" width="110" height="110" alt="Trojan QR"/></td>
     </tr>
     <!-- SHADOWSOCKS -->
     <tr>
       <td align="center"><b>Shadowsocks</b></td>
-      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/main/protocols/shadowsocks](https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt">لینک اشتراک Shadowsocks</a></td>
-      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Fmain%2Fprotocols%2Fshadowsocks" width="110" height="110" alt="Shadowsocks QR"/></td>
+      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt">کپی لینک Shadowsocks</a></td>
+      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt" width="110" height="110" alt="Shadowsocks QR"/></td>
     </tr>
     <!-- HYSTERIA -->
     <tr>
-      <td align="center"><b>Hysteria </b></td>
-      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/main/protocols/hysteria](https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt">لینک اشتراک Hysteria</a></td>
-      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Fmain%2Fprotocols%2Fhysteria" width="110" height="110" alt="Hysteria QR"/></td>
+      <td align="center"><b>Hysteria</b></td>
+      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt">کپی لینک Hysteria</a></td>
+      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt" width="110" height="110" alt="Hysteria QR"/></td>
     </tr>
-    <!-- TUIC -->
+    <!-- HYSTERIA 2 -->
     <tr>
-      <td align="center"><b>Hysteria2</b></td>
-      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/main/protocols/tuic](https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt)](https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt">لینک اشتراک Hysteria2</a></td>
-      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Fmain%2Fprotocols%2Ftuic" width="110" height="110" alt="TUIC QR"/></td>
+      <td align="center"><b>Hysteria 2</b></td>
+      <td align="center"><a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt">کپی لینک Hysteria 2</a></td>
+      <td align="center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt" width="110" height="110" alt="Hysteria 2 QR"/></td>
     </tr>
   </tbody>
 </table>
 
-
 ---
 
-<h2 dir="rtl">💻 کلاینت‌های سازگار و نرم‌افزارهای پیشنهادی</h2>
+<h2 dir="rtl">💻 نرم‌افزارهای سازگار پیشنهادی</h2>
 
 <p dir="rtl">
-شما می‌توانید لینک‌های فوق را در تمامی برنامه‌هایی که از قابلیت Subscription پشتیبانی می‌کنند استفاده کنید:
+جهت استفاده بهینه از این اشتراک‌ها، می‌توانید از کلاینت‌های استاندارد زیر در سیستم‌عامل‌های مختلف استفاده نمایید:
 </p>
 
-* **Android:** `v2rayNG`, `Hiddify`, `NekoBox`, `Sing-box`
-* **iOS:** `FoXray`, `Streisand`, `V2Box`, `Shadowrocket`
-* **Windows:** `v2rayN`, `Nekoray`, `Hiddify`
-* **macOS:** `V2rayU`, `NekoBox`, `Hiddify`, `Sing-Box`
+* **اندروید:** `v2rayNG` | `Hiddify` | `NekoBox` | `Sing-box`
+* **آی‌او‌اس (iOS):** `FoXray` | `Streisand` | `V2Box` | `Shadowrocket`
+* **ویندوز:** `v2rayN` | `Nekoray` | `Hiddify`
+* **مک (macOS):** `V2rayU` | `NekoBox` | `Hiddify` | `Sing-box`
 
 ---
 
 <h2 dir="rtl">⚠️ سلب مسئولیت (Disclaimer)</h2>
 
 <p dir="rtl">
-این پروژه صرفاً با اهداف آموزشی، تحقیقاتی و جهت بهبود حریم خصوصی دیجیتال توسعه یافته است. استفاده از محتوای این مخزن بر عهده خود کاربر می‌باشد و توسعه‌دهنده مسئولیتی در قبال نحوه استفاده از آن ندارد. کانفیگ‌ها از منابع عمومی سطح وب جمع‌آوری شده‌اند.
+این پروژه برای اهداف آموزشی، تحقیقاتی و حفظ حریم خصوصی ایجاد شده است. بررسی و آزمایش صحت اطلاعات ارائه شده بر عهده کاربر نهایی است و توسعه‌دهندگان تعهدی در قبال نحوه استفاده از خروجی‌های خودکار این اسکریپت ندارند.
 </p>
 
 ---
