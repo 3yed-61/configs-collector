@@ -139,3 +139,14 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
 
 # Hysteria 2 Sub
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt
+
+</details>
+
+<h2 dir="rtl">💻 کلاینت‌های سازگار و نرم‌افزارها</h2>
+<p dir="rtl">
+لینک‌های فوق از قابلیت به‌روزرسانی خودکار (Subscription) پشتیبانی می‌کنند و در نرم‌افزارهای زیر قابل اجرا هستند:
+</p>
+اندروید: v2rayNG • Hiddify • NekoBox • Sing-box
+آی‌او‌اس: FoXray • Streisand • V2Box • Shadowrocket
+ویندوز: v2rayN • Nekoray • Hiddify
+مک: V2rayU • NekoBox • Hiddify • Sing-box
