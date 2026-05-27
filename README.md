@@ -38,11 +38,9 @@
     <br><br>
     <p dir="rtl"><b>📋 آدرس مستقیم اشتراک (دبل‌کلیک روی کادر زیر):</b></p>
 
-      ```POV-Ray SDL
       
       https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
-      
-    ```
+
   </div>
 </details>
 
