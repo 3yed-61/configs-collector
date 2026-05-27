@@ -37,7 +37,9 @@
     <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
     <br><br>
     <p dir="rtl"><b>📋 آدرس مستقیم اشتراک (دبل‌کلیک روی کادر زیر):</b></p>
+    
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
+
   </div>
 </details>
 
