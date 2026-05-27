@@ -18,9 +18,23 @@
 
 <hr>
 
+<h2 dir="rtl" align="center">🚀 راهنمای سریع وارد کردن لینک‌ها (تکنولوژی خودکار)</h2>
+<p dir="rtl" align="right">
+کلاینت‌های مدرن مانند <b>Hiddify</b> و <b>Sing-Box</b> دارای قابلیت تشخیص هوشمند کلیپ‌بورد هستند. مراحل زیر ساده‌ترین راه برای اتصال است:
+</p>
+<div dir="rtl">
+
+1. **کپی لینک:** در بخش کارت‌های پروتکل زیر، روی دکمه‌ی کپی (📋) در گوشه کادر آدرس مورد نظر کلیک کنید.
+2. **باز کردن برنامه:** نرم‌افزار کلاینت خود (مثلاً هیدی‌فای) را باز کنید.
+3. **تایید خودکار:** برنامه به‌طور خودکار لینک کپی‌شده را در کلیپ‌بورد شما تشخیص داده و پیامی برای **«وارد کردن سریع»** نمایش می‌دهد؛ کافیست روی دکمه OK یا Import بزنید.
+
+</div>
+
+<hr>
+
 <h2 dir="rtl" align="center">⚙️ هاب دریافت اشتراک و کدهای QR تعاملی</h2>
 <p dir="rtl" align="center">
-جهت مشاهده جزییات هر پروتکل، کدهای QR و گزینه‌های وارد کردن سریع، روی عنوان پروتکل مورد نظر کلیک کنید تا پنل مربوطه باز شود.
+روی عنوان پروتکل مورد نظر کلیک کنید تا کارت اختصاصی، کد QR بزرگ و کادر کپی یک‌کلیکه نمایش داده شود.
 </p>
 
 <br>
@@ -48,10 +62,6 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
   <div align="center">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt" width="200" height="200" style="border: 2px solid #f0883e; border-radius: 8px;" alt="VMess QR"/>
     <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt%23VMESS"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
     <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
 
 ```text
@@ -67,10 +77,6 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
   <br>
   <div align="center">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt" width="200" height="200" style="border: 2px solid #bc85a3; border-radius: 8px;" alt="Trojan QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt%23TROJAN"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
     <br><br>
     <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
 
@@ -88,10 +94,6 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
   <div align="center">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt" width="200" height="200" style="border: 2px solid #a29bfe; border-radius: 8px;" alt="Shadowsocks QR"/>
     <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt%23SS"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
     <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
 
 ```text
@@ -107,10 +109,6 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
   <br>
   <div align="center">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt" width="200" height="200" style="border: 2px solid #ff7675; border-radius: 8px;" alt="Hysteria QR"/>
-    <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt%23HYSTERIA"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
     <br><br>
     <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
 
@@ -128,10 +126,6 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
   <div align="center">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt" width="200" height="200" style="border: 2px solid #e17055; border-radius: 8px;" alt="Hysteria 2 QR"/>
     <br><br>
-    <p dir="rtl"><b>📥 وارد کردن سریع با یک کلیک:</b></p>
-    <a href="hiddify://install-config?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt%23HYSTERIA2"><img src="https://img.shields.io/badge/Import%20to-Hiddify-orange?style=for-the-badge&logo=hiddify&logoColor=white" /></a>
-    <a href="sing-box://import-remote?url=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt"><img src="https://img.shields.io/badge/Import%20to-Sing--Box-blue?style=for-the-badge&logo=singbox&logoColor=white" /></a>
-    <br><br>
     <p dir="rtl"><b>📋 کپی آدرس اشتراک (کلیک روی دکمه‌ی کپی در گوشه کادر زیر):</b></p>
 
 ```text
@@ -143,10 +137,10 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
 
 ---
 
-<h2 dir="rtl">💻 ابزارهای سازگار و راهنمای راه‌اندازی</h2>
+<h2 dir="rtl">💻 ابزارهای سازگار و راهنمای نصب</h2>
 
 <p dir="rtl">
-شما می‌توانید با وارد کردن هر یک از لینک‌های فوق در بخش Subscription نرم‌افزارهای زیر، کانفیگ‌ها را دریافت نمایید:
+شما می‌توانید با کپی کردن هر یک از لینک‌های فوق و وارد کردن در بخش Subscription نرم‌افزارهای زیر، کانفیگ‌ها را دریافت نمایید:
 </p>
 
 * 🤖 **اندروید:** `v2rayNG` • `Hiddify` • `NekoBox` • `Sing-box`
