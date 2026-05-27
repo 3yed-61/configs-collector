@@ -1,73 +1,111 @@
+<div align="center">
 
-# configs-collector
+# ⚡ Configs Collector | جمع‌آوری‌کننده هوشمند کانفیگ‌ها
 
-## About
-A Python-based tool designed to automatically collect, classify, and organize configuration files using customizable classification logic.
+<p dir="rtl">
+سیستم خودکار پایش، تست کیفیت و دسته‌بندی کانفیگ‌های ارتباطی از منابع معتبر با آپدیت‌های زمان‌بندی‌شده.
+</p>
 
-## Features
-- Automatic scanning and ingestion of configuration files.
-- Classification module (`sub_classifier.py`) for applying custom rules.
-- Structured output folders for organized processing.
-- Easy to extend with additional classifiers or data types.
+[![Github Stars](https://img.shields.io/github/stars/3yed-61/configs-collector?style=for-the-badge&color=gold)](https://github.com/3yed-61/configs-collector/stargazers)
+[![Github Forks](https://img.shields.io/github/forks/3yed-61/configs-collector?style=for-the-badge&color=blue)](https://github.com/3yed-61/configs-collector/network/members)
+[![Active Workflow](https://img.shields.io/github/actions/workflow/status/3yed-61/configs-collector/main.yml?branch=main&style=for-the-badge&label=Update%20Status)](https://github.com/3yed-61/configs-collector/actions)
 
-## Requirements
-- Python 3.8+
-- Install dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
+</div>
 
-## Installation
-Clone the repository:
-```bash
-git clone https://github.com/3yed-61/configs-collector.git
-cd configs-collector
-```
+<hr>
 
-(Optional) Create a virtual environment:
-```bash
-python3 -m venv venv
-source venv/bin/activate    # Linux/macOS
-venv\Scripts\activate     # Windows
-```
+<h2 dir="rtl" align="center">📱 کارت‌های دریافت اشتراک و کدهای QR (سایز بزرگ)</h2>
+<p dir="rtl" align="center">
+برای اتصال سریع، کد QR کارت مربوطه را اسکن کنید یا روی دکمه‌ی قرار گرفته در زیر کارت کلیک نمایید.
+</p>
 
-Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+<table align="center" width="100%">
+  <!-- ردیف اول: VLESS و VMESS -->
+  <tr>
+    <td align="center" width="50%">
+      <br>
+      <img src="https://img.shields.io/badge/PROTOCOL-VLESS-blue?style=for-the-badge&logo=virtualbox&logoColor=white" alt="VLESS Badge" />
+      <br><br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvless.txt" width="180" height="180" alt="VLESS QR"/>
+      <br><br>
+      <a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt"><b>🔗 دریافت لینک اشتراک VLESS</b></a>
+      <br><br>
+    </td>
+    <td align="center" width="50%">
+      <br>
+      <img src="https://img.shields.io/badge/PROTOCOL-VMESS-orange?style=for-the-badge&logo=vbox&logoColor=white" alt="VMESS Badge" />
+      <br><br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fvmess.txt" width="180" height="180" alt="VMess QR"/>
+      <br><br>
+      <a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt"><b>🔗 دریافت لینک اشتراک VMess</b></a>
+      <br><br>
+    </td>
+  </tr>
+  <!-- ردیف دوم: Trojan و Shadowsocks -->
+  <tr>
+    <td align="center" width="50%">
+      <br>
+      <img src="https://img.shields.io/badge/PROTOCOL-TROJAN-purple?style=for-the-badge&logo=shield&logoColor=white" alt="Trojan Badge" />
+      <br><br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Ftrojan.txt" width="180" height="180" alt="Trojan QR"/>
+      <br><br>
+      <a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt"><b>🔗 دریافت لینک اشتراک Trojan</b></a>
+      <br><br>
+    </td>
+    <td align="center" width="50%">
+      <br>
+      <img src="https://img.shields.io/badge/PROTOCOL-SHADOWSOCKS-lightgrey?style=for-the-badge&logo=shadowsocks&logoColor=white" alt="Shadowsocks Badge" />
+      <br><br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fss.txt" width="180" height="180" alt="Shadowsocks QR"/>
+      <br><br>
+      <a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt"><b>🔗 دریافت لینک اشتراک Shadowsocks</b></a>
+      <br><br>
+    </td>
+  </tr>
+  <!-- ردیف سوم: Hysteria و Hysteria 2 -->
+  <tr>
+    <td align="center" width="50%">
+      <br>
+      <img src="https://img.shields.io/badge/PROTOCOL-HYSTERIA_1-red?style=for-the-badge&logo=fastapi&logoColor=white" alt="Hysteria Badge" />
+      <br><br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria.txt" width="180" height="180" alt="Hysteria QR"/>
+      <br><br>
+      <a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt"><b>🔗 دریافت لینک اشتراک Hysteria</b></a>
+      <br><br>
+    </td>
+    <td align="center" width="50%">
+      <br>
+      <img src="https://img.shields.io/badge/PROTOCOL-HYSTERIA_2-darkred?style=for-the-badge&logo=fastapi&logoColor=white" alt="Hysteria 2 Badge" />
+      <br><br>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fraw.githubusercontent.com%2F3yed-61%2Fconfigs-collector%2Frefs%2Fheads%2Fmain%2Fclassified_output%2Fhysteria2.txt" width="180" height="180" alt="Hysteria 2 QR"/>
+      <br><br>
+      <a href="https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt"><b>🔗 دریافت لینک اشتراک Hysteria 2</b></a>
+      <br><br>
+    </td>
+  </tr>
+</table>
 
-## Usage
-Run the classifier script:
-```bash
-python sub_classifier.py --input path/to/configs --output classified_output/
-```
+---
 
-Arguments:
-- `--input` : Path to config files or directory
-- `--output`: Destination folder for classified configs
+<details>
+<summary><b dir="rtl">📋 پنل دسترسی متنی و کپی سریع آدرس‌ها (کلیک کنید)</b></summary>
+<br>
 
-## Example
-```bash
-python sub_classifier.py --input raw-configs/ --output classified_output/
-```
+```text
+# VLESS Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vless.txt
 
-## Development
-1. Fork the repository
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/my-new-classifier
-   ```
-3. Commit changes and submit a Pull Request with a clear explanation.
+# VMESS Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/vmess.txt
 
-## Contributing
-Contributions are welcome.  
-Please ensure:
-- Clear explanation of changes
-- Tests (if applicable)
-- Clean and readable code
+# Trojan Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/trojan.txt
 
-## License
-This project is licensed under the Apache License 2.0.
+# Shadowsocks Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/ss.txt
 
-## Contact
-Open an Issue in the repository for questions, bugs, or suggestions.
+# Hysteria Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria.txt
+
+# Hysteria 2 Sub
+https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt
