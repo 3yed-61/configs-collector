@@ -8,8 +8,6 @@
 پروژه‌ای خودکار و هوشمند جهت پایش، ارزیابی کیفیت و دسته‌بندی کانفیگ‌های فعال پروتکل‌های ارتباطی.
 </p>
 
-[images/p.gif](https://github.com/3yed-61/warpsub/blob/1e9fa0df21d00878653e25cbdfc49421092d1496/images/p.gif)
-
 <!-- نشان‌های آماری یکپارچه -->
 <p align="center">
   <img src="https://img.shields.io/github/stars/3yed-61/configs-collector?style=for-the-badge&color=FFE082&logo=github&logoColor=black" alt="Stars" />
