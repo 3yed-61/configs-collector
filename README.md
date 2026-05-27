@@ -1,4 +1,4 @@
-![Uploading p.gif…]()
+
 <div align="center">
 
 <!-- هدر انیمیشنی پویا -->
@@ -7,8 +7,8 @@
 <p dir="rtl">
 پروژه‌ای خودکار و هوشمند جهت پایش، ارزیابی کیفیت و دسته‌بندی کانفیگ‌های فعال پروتکل‌های ارتباطی.
 </p>
-![Uploading p.gif…]()
 
+[images/p.gif](https://github.com/3yed-61/warpsub/blob/1e9fa0df21d00878653e25cbdfc49421092d1496/images/p.gif)
 
 <!-- نشان‌های آماری یکپارچه -->
 <p align="center">
