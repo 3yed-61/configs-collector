@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ Configs Collector 
+# ⚡ Configs Collector | جمع‌آوری‌کننده هوشمند کانفیگ‌ها
 
 <p dir="rtl">
 سیستم خودکار پایش، تست کیفیت و دسته‌بندی کانفیگ‌های ارتباطی از منابع معتبر با آپدیت‌های زمان‌بندی‌شده.
@@ -14,7 +14,7 @@
 
 <hr>
 
-<h2 dir="rtl" align="center">📱 کارت‌های دریافت اشتراک و کدهای QR </h2>
+<h2 dir="rtl" align="center">📱 کارت‌های دریافت اشتراک و کدهای QR (سایز بزرگ)</h2>
 <p dir="rtl" align="center">
 برای اتصال سریع، کد QR کارت مربوطه را اسکن کنید یا روی دکمه‌ی قرار گرفته در زیر کارت کلیک نمایید.
 </p>
@@ -109,3 +109,19 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
 
 # Hysteria 2 Sub
 https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/classified_output/hysteria2.txt
+</details>
+<h2 dir="rtl">💻 کلاینت‌های سازگار و نرم‌افزارها</h2>
+<p dir="rtl">
+لینک‌های فوق از قابلیت به‌روزرسانی خودکار (Subscription) پشتیبانی می‌کنند و در نرم‌افزارهای زیر قابل اجرا هستند:
+</p>
+اندروید: v2rayNG • Hiddify • NekoBox • Sing-box
+آی‌او‌اس: FoXray • Streisand • V2Box • Shadowrocket
+ویندوز: v2rayN • Nekoray • Hiddify
+مک: V2rayU • NekoBox • Hiddify • Sing-box
+<h2 dir="rtl">⚠️ سلب مسئولیت (Disclaimer)</h2>
+<p dir="rtl">
+این پروژه برای اهداف پژوهشی و بهبود امنیت ارتباطات توسعه یافته است. تایید کیفیت و استفاده درست از خروجی‌های این ابزار خودکار بر عهده کاربر نهایی است و پروژه مسئولیتی در قبال چگونگی بهره‌برداری از محتوای آن نمی‌پذیرد.
+</p>
+<div align="center">
+![alt text](https://api.star-history.com/svg?repos=3yed-61/configs-collector&type=Date)
+</div>
