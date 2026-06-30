@@ -77,6 +77,17 @@ class TestParseQuery:
         q = parse_query(uri)
         assert q == {}
 
+    def test_ipv6_url(self):
+        uri = "trojan://pass@[::1]:443?security=tls&type=tcp#tag"
+        q = parse_query(uri)
+        assert q["security"] == ["tls"]
+        assert q["type"] == ["tcp"]
+
+    def test_ipv6_url_no_query(self):
+        uri = "trojan://pass@[::1]:443#tag"
+        q = parse_query(uri)
+        assert q == {}
+
 
 class TestFindJsonConfigs:
     def test_finds_json_object(self):
@@ -109,6 +120,15 @@ class TestNormalizeFragment:
         result = normalize_fragment("ServerName 🇺🇸", "MyTag")
         assert "🇺🇸" in result
         assert "MyTag" in result
+
+    def test_hyphenated_name_preserved(self):
+        """Hyphenated names should be preserved as suffix, not split on -."""
+        result = normalize_fragment("US-Server-1", "MyTag")
+        assert result == "MyTag::US-Server-1"
+
+    def test_plain_name_becomes_suffix(self):
+        result = normalize_fragment("SomeName", "MyTag")
+        assert result == "MyTag::SomeName"
 
 
 class TestNormalizeTagInUri:
