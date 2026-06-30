@@ -78,27 +78,17 @@ def normalize_fragment(fragment: str, new_tag: str) -> str:
     if new_tag in frag:
         return frag
 
-    # Try known delimiters
-    delimiters = ["::", "-", "_"]
-    suffix = None
+    # Only use :: as a tag delimiter (- and _ are too common in names)
+    if "::" in frag:
+        suffix = frag.split("::", 1)[1].strip()
+        if suffix:
+            if new_tag in suffix:
+                return suffix
+            return f"{new_tag}::{suffix}"
+        return new_tag
 
-    for delim in delimiters:
-        if delim in frag:
-            suffix = frag.split(delim, 1)[1].strip()
-            break
-
-    # Try flag emoji
-    if suffix is None:
-        match = FLAG_RE.search(frag)
-        if match:
-            suffix = match.group(1)
-
-    if suffix:
-        if new_tag in suffix:
-            return suffix
-        return f"{new_tag}::{suffix}"
-
-    return new_tag
+    # Preserve the original name as suffix
+    return f"{new_tag}::{frag}"
 
 
 def normalize_tag_in_uri(uri: str, new_tag: str) -> str:
@@ -144,5 +134,5 @@ def decode_vmess_base64(uri: str) -> dict | None:
 def encode_vmess_json_to_uri(obj: dict) -> str:
     """Encode a VMess JSON config back to a vmess:// URI."""
     raw = json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
-    encoded = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
+    encoded = base64.b64encode(raw.encode()).decode().rstrip("=")
     return f"vmess://{encoded}"
