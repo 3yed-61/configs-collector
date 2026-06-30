@@ -1,0 +1,6 @@
+# V2Ray Config Sources
+# One URL per line. Lines starting with # are ignored.
+# Add your subscription URLs here.
+
+https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt
+https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt

@@ -1,0 +1,2 @@
+[console_scripts]
+configs-collector = collector.__main__:main
