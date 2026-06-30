@@ -30,7 +30,15 @@ def classify_uri_scheme(uri: str) -> str:
 
 def parse_query(uri: str) -> dict:
     """Parse the query string of a URI into a dict."""
-    return {k: v for k, v in parse_qs(urlsplit(uri).query).items()}
+    try:
+        return {k: v for k, v in parse_qs(urlsplit(uri).query).items()}
+    except ValueError:
+        # Fallback for IPv6 URLs that urlsplit cannot handle
+        parts = uri.split("?", 1)
+        if len(parts) < 2:
+            return {}
+        query_part = parts[1].split("#", 1)[0]
+        return {k: v for k, v in parse_qs(query_part).items()}
 
 
 # ────────────────────────── JSON Extraction ──────────────────────────
