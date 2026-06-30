@@ -69,16 +69,21 @@ def find_json_configs(text: str) -> List[dict]:
 # ────────────────────────── Tag Normalization ──────────────────────────
 
 
+# Fallback flag used when no country flag is present in the name.
+FALLBACK_FLAG = "🏴‍☠️"
+
+
 def normalize_fragment(fragment: str, new_tag: str) -> str:
     """
     Normalize the fragment (tag) portion of a URI.
 
-    Keeps only the new_tag and any country flag emoji found in the
+    Keeps only the new_tag plus a country flag emoji found in the
     original fragment.  All other text (channel names, server names,
-    etc.) is discarded.
+    etc.) is discarded.  When no country flag is present, a fallback
+    pirate flag is used instead.
     """
     if not fragment:
-        return new_tag
+        return f"{new_tag}::{FALLBACK_FLAG}"
 
     frag = fragment.strip()
 
@@ -87,7 +92,7 @@ def normalize_fragment(fragment: str, new_tag: str) -> str:
     if match:
         return f"{new_tag}::{match.group(1)}"
 
-    return new_tag
+    return f"{new_tag}::{FALLBACK_FLAG}"
 
 
 def normalize_tag_in_uri(uri: str, new_tag: str) -> str:
