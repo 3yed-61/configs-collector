@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-06-30T15:09:01.685246+00:00",
-  "total": 44572,
+  "updated_at": "2026-06-30T16:01:18.862804+00:00",
+  "total": 44577,
   "total_secure": 33191,
   "total_lite": 200,
   "protocols": {
     "vmess": {
-      "total": 2530,
+      "total": 2531,
       "secure": 1372,
       "lite": 50
     },
@@ -20,7 +20,7 @@
       "lite": 50
     },
     "ss": {
-      "total": 2924,
+      "total": 2928,
       "secure": 1,
       "lite": 50
     },
