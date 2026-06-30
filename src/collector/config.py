@@ -16,7 +16,6 @@ DEFAULT_OUTDIR = PROJECT_ROOT / "classified_output"
 
 DEFAULT_URLS: list[str] = [
     "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt",
-    "https://raw.githubusercontent.com/M-logique/Proxies/refs/heads/main/proxies/regular/socks5.txt",
 ]
 
 # ────────────────────────── Regex Patterns ──────────────────────────
