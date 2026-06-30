@@ -70,25 +70,24 @@ def find_json_configs(text: str) -> List[dict]:
 
 
 def normalize_fragment(fragment: str, new_tag: str) -> str:
-    """Normalize the fragment (tag) portion of a URI."""
+    """
+    Normalize the fragment (tag) portion of a URI.
+
+    Keeps only the new_tag and any country flag emoji found in the
+    original fragment.  All other text (channel names, server names,
+    etc.) is discarded.
+    """
     if not fragment:
         return new_tag
 
     frag = fragment.strip()
-    if new_tag in frag:
-        return frag
 
-    # Only use :: as a tag delimiter (- and _ are too common in names)
-    if "::" in frag:
-        suffix = frag.split("::", 1)[1].strip()
-        if suffix:
-            if new_tag in suffix:
-                return suffix
-            return f"{new_tag}::{suffix}"
-        return new_tag
+    # Extract country flag emoji (regional indicator pairs like 🇺🇸 🇫🇮)
+    match = FLAG_RE.search(frag)
+    if match:
+        return f"{new_tag}::{match.group(1)}"
 
-    # Preserve the original name as suffix
-    return f"{new_tag}::{frag}"
+    return new_tag
 
 
 def normalize_tag_in_uri(uri: str, new_tag: str) -> str:
