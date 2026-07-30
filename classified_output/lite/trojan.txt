@@ -44,7 +44,7 @@ trojan://humanity@86.38.214.205:443?path=%2Fassignment&security=tls&insecure=0&f
 trojan://0_Oms89nH82l_Ki813_Nxmw81_Rbt_Jq190Kl_m@167.150.100.133:450?security=tls&sni=grape-power-sg.roxa.org&alpn=http/1.1&fp=chrome&type=tcp&path=/#3%CE%BB%CE%9E%C4%90
 trojan://0_Oms89nH82l_Ki813_Nxmw81_Rbt_Jq190Kl_m@167.150.100.133:450?security=tls&sni=grape-power-sg.roxa.org&fp=chrome&insecure=0&allowInsecure=0&type=tcp&headerType=none#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B8%F0%9F%87%AC
 trojan://humanity@86.38.214.205:443?path=%2Fassignment&security=tls&insecure=0&host=www.ignitelimit.com&type=ws&allowInsecure=0&sni=www.ignitelimit.com#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AB%F0%9F%87%B7
-trojan://T-me-DarkVPNpro@91.107.187.135:443?type=tcp&security=tls&fp=safari&alpn=h2&allowInsecure=1&sni=iranserver.com#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%A9%F0%9F%87%AA
-trojan://humanity@81.255.155.10:443?host=www.creationlong.org&path=%2Fassignment&sni=www.creationlong.org&type=ws#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AB%F0%9F%87%B7
-trojan://47ac2c00-0a7d-11f0-81fc-1239d0255272@51.38.65.155:443?security=tls&sni=uk1.test3.net&allowInsecure=1&fp=chrome&type=tcp#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AC%F0%9F%87%A7
-trojan://HW85960347@185.14.47.125:443?security=tls&sni=eminent-lamb.rooster465.autos&path=/#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%AD%F0%9F%87%B0
+trojan://WG39087154@91.243.81.111:443?sni=whole-grub.rooster465.autos&fp=chrome&type=tcp&path=/#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B8%F0%9F%87%AC
+trojan://PD07395842@darling-mutt.rooster465.autos:443?sni=darling-mutt.rooster465.autos&type=tcp&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%A6%F0%9F%87%BA
+trojan://WG39087154@89.39.70.180:443?sni=eager-louse.rooster465.autos&fp=chrome&type=tcp&path=/#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B3%F0%9F%87%B1
+trojan://HK78346019@suitable-feline.rooster465.autos:443?security=tls#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%B5%F0%9F%87%B1
