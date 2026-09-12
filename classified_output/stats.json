@@ -1,26 +1,26 @@
 {
-  "updated_at": "2026-09-12T12:35:06.910834+00:00",
-  "total": 20988,
-  "total_secure": 15015,
+  "updated_at": "2026-09-12T17:39:21.841039+00:00",
+  "total": 20912,
+  "total_secure": 15067,
   "total_lite": 200,
   "protocols": {
     "vmess": {
-      "total": 1743,
-      "secure": 989,
+      "total": 1759,
+      "secure": 979,
       "lite": 50
     },
     "vless": {
-      "total": 12040,
-      "secure": 9772,
+      "total": 12129,
+      "secure": 9876,
       "lite": 50
     },
     "trojan": {
-      "total": 4245,
-      "secure": 4213,
+      "total": 4203,
+      "secure": 4171,
       "lite": 50
     },
     "ss": {
-      "total": 2960,
+      "total": 2821,
       "secure": 41,
       "lite": 50
     },
