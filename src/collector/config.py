@@ -15,7 +15,7 @@ DEFAULT_OUTDIR = PROJECT_ROOT / "classified_output"
 # ────────────────────────── Default Sources ──────────────────────────
 
 DEFAULT_URLS: list[str] = [
-    "https://raw.githubusercontent.com/hamedp-71/Sub_Checker_Creator/refs/heads/main/final.txt",
+    "https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/verified/configs.txt",
 ]
 
 # ────────────────────────── Regex Patterns ──────────────────────────
