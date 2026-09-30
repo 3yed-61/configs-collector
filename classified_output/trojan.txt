@@ -3323,7 +3323,7 @@ trojan://UO36402987@52.78.195.193:443?sni=definite-ladybird.rooster465.autos&typ
 trojan://UO36402987@definite-ladybird.rooster465.autos:443?security=tls&insecure=0&headerType=none&type=tcp&allowInsecure=0#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%8F%B4%E2%80%8D%E2%98%A0%EF%B8%8F
 trojan://UO36402987@many-cricket.rooster465.autos:443#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%8F%B4%E2%80%8D%E2%98%A0%EF%B8%8F
 trojan://UO36402987@warm-bass.rooster465.autos:443?sni=warm-bass.rooster465.autos&type=tcp&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%8F%B4%E2%80%8D%E2%98%A0%EF%B8%8F
-trojan://UQfj7bdfjibTjpUHfg72aew51S7fB32g@bright.bitgas.org:443?security=tls&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%8F%B4%E2%80%8D%E2%98%A0%EF%B8%8F
+trojan://UQfj7bdfjibTjpUHfg72aew51S7fB32g@bright.bitgas.org:443?security=tls&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%BA%F0%9F%87%B8
 trojan://UX82473651@actual-squid.rooster465.autos:443?mux=1&allowInsecure=1&sni=actual-squid.rooster465.autos#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%8F%B4%E2%80%8D%E2%98%A0%EF%B8%8F
 trojan://UX82473651@actual-squid.rooster465.autos:443?sni=actual-squid.rooster465.autos&allowInsecure=1&type=tcp&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%A9%F0%9F%87%AA
 trojan://UX82473651@actual-squid.rooster465.autos:443?sni=actual-squid.rooster465.autos&type=tcp&fp=chrome#3%CE%BB%CE%9E%C4%90%3A%3A%F0%9F%87%A9%F0%9F%87%AA
