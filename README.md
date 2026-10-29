@@ -184,20 +184,6 @@ https://raw.githubusercontent.com/3yed-61/configs-collector/refs/heads/main/clas
   </div>
 </details>
 
----
-
-
-
-- 🏗️ **معماری ماژولار** — کد تمیز و قابل نگهداری با تفکیک مسئولیت‌ها
-- ⚡ **دانلود موازی** — دریافت همزمان چندین منبع با `ThreadPoolExecutor`
-- 📊 **تولید آمار خودکار** — فایل `stats.json` با تعداد کانفیگ هر پروتکل
-- 🔧 **منابع قابل‌تنظیم** — فایل `sources.txt` به‌جای hardcode کردن URL‌ها
-- 🤖 **GitHub Action** — اجرای خودکار هر ۳ ساعت و commit نتایج
-- 🛡️ **بررسی امنیتی** — شناسایی cipher ضعیف، insecure flag و عدم TLS
-- 🧪 **تست واحد** — پوشش تست برای پارسرها و بررسی‌های امنیتی
-- 📦 **پکیج‌بندی مدرن** — قابل نصب با `pip install`
-
-</p>
 
 ---
 
